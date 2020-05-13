@@ -1,0 +1,27 @@
+{
+    "name": "larasnap/laravel-admin",
+    "description": "Laravel Admin Panel",
+    "authors": [
+        {
+            "name": "Karthick Sivakumar",
+            "email": "karthicksivakumardev@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+	"autoload": {
+        "psr-4": {
+            "LaraSnap\\LaravelAdmin\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "require": {},
+    "extra": {
+    "laravel": {
+      "providers": [
+        "LaraSnap\\LaravelAdmin\\LaravelAdminServiceProvider"
+      ]
+    }
+  }
+}
