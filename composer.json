@@ -1,6 +1,7 @@
 {
     "name": "larasnap/laravel-admin",
     "description": "Laravel Admin Panel",
+    "license": "MIT",
     "authors": [
         {
             "name": "Karthick Sivakumar",
