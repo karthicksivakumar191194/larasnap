@@ -3,6 +3,9 @@
 use Illuminate\Database\Seeder;
 use LaraSnap\LaravelAdmin\Models\User;
 use LaraSnap\LaravelAdmin\Models\UserProfile;
+use LaraSnap\LaravelAdmin\Models\Role;
+use LaraSnap\LaravelAdmin\Models\Screen;
+use LaraSnap\LaravelAdmin\Models\RoleScreen;
 use LaraSnap\LaravelAdmin\Models\Menu;
 use LaraSnap\LaravelAdmin\Models\MenuItem;
 use LaraSnap\LaravelAdmin\Models\Setting;
@@ -37,6 +40,64 @@ class LaraSnapSeeder extends Seeder
             $user->userProfile()->save($userProfile); 
         }
         
+        //Role Seed
+        $role = Role::where('name', 'super-admin')->first();
+        if(!$role){
+            $role = new Role;
+            $role->name = 'super-admin';
+            $role->label = 'Super Admin';
+            $role->save();
+        }
+        
+        //User Role Mapping Seed
+        $user->roles()->detach();
+        $user->assignRole($role->id);
+        
+        //Screen Seed & Role Screen Mapping Seed
+        Screen::whereIn('name', ['dashboard', 'users.index', 'users.create', 'users.edit', 'users.show', 'users.destroy', 'users.assignrole_create', 'roles.index', 'roles.create', 'roles.edit', 'roles.show', 'roles.destroy', 'roles.assignpermission_create', 'roles.assignscreen_create', 'permissions.index', 'permissions.create', 'permissions.edit', 'permissions.show', 'permissions.destroy', 'screens.index', 'screens.create', 'screens.edit', 'screens.show', 'screens.destroy', 'screens.assignrole_create', 'menus.index', 'menus.create', 'menus.edit', 'menus.show', 'menus.destroy', 'menus.builder', 'docs.index' ])->delete();
+        
+        RoleScreen::where('role_id', $role->id)->delete();
+        
+        $screens = [
+            ['name' => 'dashboard','label' => 'Dashboard'],
+            ['name' => 'users.index','label' => 'User List'],
+            ['name' => 'users.create','label' => 'User Create'],
+            ['name' => 'users.edit','label' => 'User Edit'],
+            ['name' => 'users.show','label' => 'User Show'],
+            ['name' => 'users.destroy','label' => 'User Delete'],
+            ['name' => 'users.assignrole_create','label' => 'User Assign Role'],
+            ['name' => 'roles.index','label' => 'Role List'],
+            ['name' => 'roles.create','label' => 'Role Create'],
+            ['name' => 'roles.edit','label' => 'Role Edit'],
+            ['name' => 'roles.show','label' => 'Role Show'],
+            ['name' => 'roles.destroy','label' => 'Role Delete'],
+            ['name' => 'roles.assignpermission_create','label' => 'Role Assign Permission'],
+            ['name' => 'roles.assignscreen_create','label' => 'Role Assign Screen'],
+            ['name' => 'permissions.index','label' => 'Permission List'],
+            ['name' => 'permissions.create','label' => 'Permission Create'],
+            ['name' => 'permissions.edit','label' => 'Permission Edit'],
+            ['name' => 'permissions.show','label' => 'Permission Show'],
+            ['name' => 'permissions.destroy','label' => 'Permission Delete'],
+            ['name' => 'screens.index','label' => 'Screen List'],
+            ['name' => 'screens.create','label' => 'Screen Create'],
+            ['name' => 'screens.edit','label' => 'Screen Edit'],
+            ['name' => 'screens.show','label' => 'Screen Show'],
+            ['name' => 'screens.destroy','label' => 'Screen Delete'],
+            ['name' => 'screens.assignrole_create','label' => 'Screen Assign Role'],
+            ['name' => 'menus.index','label' => 'Menu List'],
+            ['name' => 'menus.create','label' => 'Menu Create'],
+            ['name' => 'menus.edit','label' => 'Menu Edit'],
+            ['name' => 'menus.show','label' => 'Menu Show'],
+            ['name' => 'menus.destroy','label' => 'Menu Delete'],
+            ['name' => 'menus.builder','label' => 'Menu-Builder'],
+            ['name' => 'docs.index','label' => 'Document'],
+        ];
+        
+        foreach ($screens as $screen){
+                $newScreen = Screen::create($screen);
+                $role->assignScreen($newScreen->id);
+        }      
+
         //Menu Seed 
         $menu = Menu::where('name', 'admin')->first();
         if(!$menu){

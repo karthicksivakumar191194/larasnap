@@ -27,9 +27,10 @@ trait Role{
     */	
 	public function hasRole($screen_roles){
 	 /* If a screen has not added on the backend for managing the ROLES or if screen doesn't has any role mapped -
-	 NO RESTRICTION FOR ANY USERS TO ACCESS THAT SCREEN*/
+	 RESTRICT USERS FROM ACCESSING THE SCREEN*/
 		if(!$screen_roles){
-			return true;
+			//return true;
+			return false;
 		}else{
 			//Check if user has any of the role mapped to the screen. | User mapped to Role & Screen mapped to Role
 			foreach($screen_roles->roles as $role){

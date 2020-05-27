@@ -51,3 +51,21 @@ if (!function_exists('menu')) {
 		return $menu->display($menuName, $type, $design);
     }
 }
+
+/**
+ * Helper Desc  : Encrypt Value.
+ */
+if(!function_exists('larasnapEncrypt')) {
+    function larasnapEncrypt($value){
+        return base64_encode($value);
+    }
+}
+
+/**
+ * Helper Desc  : Decrypt Value.
+ */
+if(!function_exists('larasnapDecrypt')) {
+    function larasnapDecrypt($value){
+        return base64_decode($value);
+    }    
+}

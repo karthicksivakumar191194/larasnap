@@ -10,7 +10,13 @@ class CheckRole{
 		$route = $request->route();
 		
 		// Get the route name from the route
-        $routeName = $this->getRouteName($route);
+        $routeName = $this->getRouteName($route); 
+        // If route name is added to exculded action, bypass the screen based authentication
+        $actions = $route->getAction();
+        $routes = isset($actions['exculde']) ? $actions['exculde'] : [];
+        if(in_array($routeName, $routes)){
+           return $next($request); 
+        }
 		// Get the required roles for the route(screen)
 		$screenRoles = $request->user()->getRequiredRoleForRoute($routeName);
 		// Check if a role is required for the route, and if so, ensure that the user has that role.
