@@ -25,7 +25,20 @@
 	color: #3a3b45 !important;
 }
 /*global style*/
-
+/* Admin Optional - Style 1 */
+/*.sidebar-dark .sidebar-brand{
+   background: #367fa9 !important;
+}
+.bg-gradient-primary{
+   background: #222d32 !important;   
+}
+.topbar{
+    background: #3c8dbc !important;
+}
+.topbar a#alertsDropdown, .topbar a span{
+    color: #fff !important;
+}*/
+/* Admin Optional - Style 1 */
 /*error page style*/
 #error-main{
 	display: -webkit-box;

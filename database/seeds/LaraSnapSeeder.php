@@ -54,7 +54,7 @@ class LaraSnapSeeder extends Seeder
         $user->assignRole($role->id);
         
         //Screen Seed & Role Screen Mapping Seed
-        Screen::whereIn('name', ['dashboard', 'users.index', 'users.create', 'users.edit', 'users.show', 'users.destroy', 'users.assignrole_create', 'roles.index', 'roles.create', 'roles.edit', 'roles.show', 'roles.destroy', 'roles.assignpermission_create', 'roles.assignscreen_create', 'permissions.index', 'permissions.create', 'permissions.edit', 'permissions.show', 'permissions.destroy', 'screens.index', 'screens.create', 'screens.edit', 'screens.show', 'screens.destroy', 'screens.assignrole_create', 'menus.index', 'menus.create', 'menus.edit', 'menus.show', 'menus.destroy', 'menus.builder', 'docs.index' ])->delete();
+        Screen::whereIn('name', ['dashboard', 'users.index', 'users.create', 'users.edit', 'users.show', 'users.destroy', 'users.assignrole_create', 'roles.index', 'roles.create', 'roles.edit', 'roles.show', 'roles.destroy', 'roles.assignpermission_create', 'roles.assignscreen_create', 'permissions.index', 'permissions.create', 'permissions.edit', 'permissions.show', 'permissions.destroy', 'screens.index', 'screens.create', 'screens.edit', 'screens.show', 'screens.destroy', 'screens.assignrole_create', 'menus.index', 'menus.create', 'menus.edit', 'menus.show', 'menus.destroy', 'menus.builder', 'settings.create', 'docs.index', 'docs.icons'])->delete();
         
         RoleScreen::where('role_id', $role->id)->delete();
         
@@ -90,7 +90,9 @@ class LaraSnapSeeder extends Seeder
             ['name' => 'menus.show','label' => 'Menu Show'],
             ['name' => 'menus.destroy','label' => 'Menu Delete'],
             ['name' => 'menus.builder','label' => 'Menu-Builder'],
+            ['name' => 'settings.create','label' => 'Settings'],
             ['name' => 'docs.index','label' => 'Document'],
+            ['name' => 'docs.icons','label' => 'Icons'],                        
         ];
         
         foreach ($screens as $screen){
@@ -122,21 +124,21 @@ class LaraSnapSeeder extends Seeder
 
             $menuItem3 = new MenuItem;
             $menuItem3->title  = "Roles Management";
-            $menuItem3->icon   = null;
+            $menuItem3->icon   = "fa-lock";
             $menuItem3->order  = 3;
             $menuItem3->target = "_self";
             $menuItem3->route  = "roles.index";
 
             $menuItem4 = new MenuItem;
             $menuItem4->title  = "Permissions Management";
-            $menuItem4->icon   = null;
+            $menuItem4->icon   = "fa-lock";
             $menuItem4->order  = 4;
             $menuItem4->target = "_self";
             $menuItem4->route  = "permissions.index";
 
             $menuItem5 = new MenuItem;
             $menuItem5->title  = "Screens Management";
-            $menuItem5->icon   = null;
+            $menuItem5->icon   = "fa-desktop";
             $menuItem5->order  = 5;
             $menuItem5->target = "_self"; 
             $menuItem5->route  = "screens.index";            

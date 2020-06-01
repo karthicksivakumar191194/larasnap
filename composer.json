@@ -1,6 +1,7 @@
 {
     "name": "larasnap/laravel-admin",
     "description": "Laravel Admin Panel",
+    "keywords":["laravel", "laravel-admin", "admin", "admin panel"],
     "license": "MIT",
     "authors": [
         {

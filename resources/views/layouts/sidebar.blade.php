@@ -1,6 +1,6 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" >
    <!-- Sidebar - Brand -->
-   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
       <div class="sidebar-brand-text mx-3">
          @if(setting('site_logo'))
             <img class="logo sidebar-logo" src="{{ storageUrl(config('larasnap.uploads.site_settings.path')) .'/'. setting('site_logo') }}" alt="logo" style="width:125px;">
