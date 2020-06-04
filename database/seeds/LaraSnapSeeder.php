@@ -6,6 +6,7 @@ use LaraSnap\LaravelAdmin\Models\UserProfile;
 use LaraSnap\LaravelAdmin\Models\Role;
 use LaraSnap\LaravelAdmin\Models\Screen;
 use LaraSnap\LaravelAdmin\Models\RoleScreen;
+use LaraSnap\LaravelAdmin\Models\Module;
 use LaraSnap\LaravelAdmin\Models\Menu;
 use LaraSnap\LaravelAdmin\Models\MenuItem;
 use LaraSnap\LaravelAdmin\Models\Setting;
@@ -52,47 +53,86 @@ class LaraSnapSeeder extends Seeder
         //User Role Mapping Seed
         $user->roles()->detach();
         $user->assignRole($role->id);
+
+        //Module
+        Module::whereIn('label', ['Dashboard', 'User Management', 'Role Management', 'Permission Management', 'Screen Management', 'Module Management', 'Menu Management', 'Settings', 'Documentation'])->delete();
+        
+        $module1 = new Module;
+        $module1->label = 'Dashboard';
+        $module1->save();
+        
+        $module2 = new Module;
+        $module2->label = 'User Management';
+        $module2->save();
+        
+        $module3 = new Module;
+        $module3->label = 'Role Management';
+        $module3->save();
+        
+        $module4 = new Module;
+        $module4->label = 'Permission Management';
+        $module4->save();
+        
+        $module5 = new Module;
+        $module5->label = 'Screen Management';
+        $module5->save();
+        
+        $module6 = new Module;
+        $module6->label = 'Module Management';
+        $module6->save();
+        
+        $module7 = new Module;
+        $module7->label = 'Menu Management';
+        $module7->save();  
+
+        $module8 = new Module;
+        $module8->label = 'Settings';
+        $module8->save(); 
+
+        $module9 = new Module;
+        $module9->label = 'Documentation';
+        $module9->save();         
         
         //Screen Seed & Role Screen Mapping Seed
-        Screen::whereIn('name', ['dashboard', 'users.index', 'users.create', 'users.edit', 'users.show', 'users.destroy', 'users.assignrole_create', 'roles.index', 'roles.create', 'roles.edit', 'roles.show', 'roles.destroy', 'roles.assignpermission_create', 'roles.assignscreen_create', 'permissions.index', 'permissions.create', 'permissions.edit', 'permissions.show', 'permissions.destroy', 'screens.index', 'screens.create', 'screens.edit', 'screens.show', 'screens.destroy', 'screens.assignrole_create', 'menus.index', 'menus.create', 'menus.edit', 'menus.show', 'menus.destroy', 'menus.builder', 'settings.create', 'docs.index', 'docs.icons'])->delete();
+        Screen::whereIn('name', ['dashboard', 'users.index', 'users.create', 'users.edit', 'users.show', 'users.destroy', 'users.assignrole_create', 'roles.index', 'roles.create', 'roles.edit', 'roles.destroy', 'roles.assignpermission_create', 'roles.assignscreen_create', 'permissions.index', 'permissions.create', 'permissions.edit', 'permissions.destroy', 'screens.index', 'screens.create', 'screens.edit', 'screens.destroy', 'screens.assignrole_create', 'modules.index', 'modules.create', 'modules.edit','modules.destroy', 'menus.index', 'menus.create', 'menus.edit', 'menus.destroy', 'menus.builder', 'settings.create', 'docs.index', 'docs.icons'])->delete();
         
         RoleScreen::where('role_id', $role->id)->delete();
         
         $screens = [
-            ['name' => 'dashboard','label' => 'Dashboard'],
-            ['name' => 'users.index','label' => 'User List'],
-            ['name' => 'users.create','label' => 'User Create'],
-            ['name' => 'users.edit','label' => 'User Edit'],
-            ['name' => 'users.show','label' => 'User Show'],
-            ['name' => 'users.destroy','label' => 'User Delete'],
-            ['name' => 'users.assignrole_create','label' => 'User Assign Role'],
-            ['name' => 'roles.index','label' => 'Role List'],
-            ['name' => 'roles.create','label' => 'Role Create'],
-            ['name' => 'roles.edit','label' => 'Role Edit'],
-            ['name' => 'roles.show','label' => 'Role Show'],
-            ['name' => 'roles.destroy','label' => 'Role Delete'],
-            ['name' => 'roles.assignpermission_create','label' => 'Role Assign Permission'],
-            ['name' => 'roles.assignscreen_create','label' => 'Role Assign Screen'],
-            ['name' => 'permissions.index','label' => 'Permission List'],
-            ['name' => 'permissions.create','label' => 'Permission Create'],
-            ['name' => 'permissions.edit','label' => 'Permission Edit'],
-            ['name' => 'permissions.show','label' => 'Permission Show'],
-            ['name' => 'permissions.destroy','label' => 'Permission Delete'],
-            ['name' => 'screens.index','label' => 'Screen List'],
-            ['name' => 'screens.create','label' => 'Screen Create'],
-            ['name' => 'screens.edit','label' => 'Screen Edit'],
-            ['name' => 'screens.show','label' => 'Screen Show'],
-            ['name' => 'screens.destroy','label' => 'Screen Delete'],
-            ['name' => 'screens.assignrole_create','label' => 'Screen Assign Role'],
-            ['name' => 'menus.index','label' => 'Menu List'],
-            ['name' => 'menus.create','label' => 'Menu Create'],
-            ['name' => 'menus.edit','label' => 'Menu Edit'],
-            ['name' => 'menus.show','label' => 'Menu Show'],
-            ['name' => 'menus.destroy','label' => 'Menu Delete'],
-            ['name' => 'menus.builder','label' => 'Menu-Builder'],
-            ['name' => 'settings.create','label' => 'Settings'],
-            ['name' => 'docs.index','label' => 'Document'],
-            ['name' => 'docs.icons','label' => 'Icons'],                        
+            ['name' => 'dashboard','label' => 'Dashboard', 'module_id' => $module1->id],
+            ['name' => 'users.index','label' => 'User List', 'module_id' => $module2->id],
+            ['name' => 'users.create','label' => 'User Create', 'module_id' => $module2->id],
+            ['name' => 'users.edit','label' => 'User Edit', 'module_id' => $module2->id],
+            ['name' => 'users.show','label' => 'User Show', 'module_id' => $module2->id],
+            ['name' => 'users.destroy','label' => 'User Delete', 'module_id' => $module2->id],
+            ['name' => 'users.assignrole_create','label' => 'User Assign Role', 'module_id' => $module2->id],
+            ['name' => 'roles.index','label' => 'Role List', 'module_id' => $module3->id],
+            ['name' => 'roles.create','label' => 'Role Create', 'module_id' => $module3->id],
+            ['name' => 'roles.edit','label' => 'Role Edit', 'module_id' => $module3->id],
+            ['name' => 'roles.destroy','label' => 'Role Delete', 'module_id' => $module3->id],
+            ['name' => 'roles.assignpermission_create','label' => 'Role Assign Permission', 'module_id' => $module3->id],
+            ['name' => 'roles.assignscreen_create','label' => 'Role Assign Screen', 'module_id' => $module3->id],
+            ['name' => 'permissions.index','label' => 'Permission List', 'module_id' => $module4->id],
+            ['name' => 'permissions.create','label' => 'Permission Create', 'module_id' => $module4->id],
+            ['name' => 'permissions.edit','label' => 'Permission Edit', 'module_id' => $module4->id],
+            ['name' => 'permissions.destroy','label' => 'Permission Delete', 'module_id' => $module4->id],
+            ['name' => 'screens.index','label' => 'Screen List', 'module_id' => $module5->id],
+            ['name' => 'screens.create','label' => 'Screen Create', 'module_id' => $module5->id],
+            ['name' => 'screens.edit','label' => 'Screen Edit', 'module_id' => $module5->id],
+            ['name' => 'screens.destroy','label' => 'Screen Delete', 'module_id' => $module5->id],
+            ['name' => 'screens.assignrole_create','label' => 'Screen Assign Role', 'module_id' => $module5->id],
+            ['name' => 'modules.index','label' => 'Module List', 'module_id' => $module6->id],
+            ['name' => 'modules.create','label' => 'Module Create', 'module_id' => $module6->id],
+            ['name' => 'modules.edit','label' => 'Module Edit', 'module_id' => $module6->id],
+            ['name' => 'modules.destroy','label' => 'Module Delete', 'module_id' => $module6->id],
+            ['name' => 'menus.index','label' => 'Menu List', 'module_id' => $module7->id],
+            ['name' => 'menus.create','label' => 'Menu Create', 'module_id' => $module7->id],
+            ['name' => 'menus.edit','label' => 'Menu Edit', 'module_id' => $module7->id],
+            ['name' => 'menus.destroy','label' => 'Menu Delete', 'module_id' => $module7->id],
+            ['name' => 'menus.builder','label' => 'Menu-Builder', 'module_id' => $module7->id],
+            ['name' => 'settings.create','label' => 'Settings', 'module_id' => $module8->id],
+            ['name' => 'docs.index','label' => 'Document', 'module_id' => $module9->id],
+            ['name' => 'docs.icons','label' => 'Icons', 'module_id' => $module9->id],
         ];
         
         foreach ($screens as $screen){

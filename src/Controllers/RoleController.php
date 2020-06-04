@@ -10,6 +10,7 @@ use LaraSnap\LaravelAdmin\Services\RoleService;
 use LaraSnap\LaravelAdmin\Models\Role;
 use LaraSnap\LaravelAdmin\Models\Permission;
 use LaraSnap\LaravelAdmin\Models\Screen;
+use LaraSnap\LaravelAdmin\Models\Module;
 
 class RoleController extends Controller
 {
@@ -174,10 +175,12 @@ class RoleController extends Controller
             $role_screens[] = $screen->id;
         }
 
-        $screens = Screen::select('id', 'name', 'label')->get();
-        $screens = $screens->pluck('id', 'label');
+        /*$screens = Screen::select('id', 'name', 'label')->get();
+        $screens = $screens->pluck('id', 'label');*/
 
-        return view('larasnap::roles.assignscreen', compact('screens','role', 'role_screens'));
+        $modules = Module::withCount('screens')->with('screens')->has('screens')->get(); 
+        
+        return view('larasnap::roles.assignscreen', compact('modules', 'role', 'role_screens'));
 
     }
 

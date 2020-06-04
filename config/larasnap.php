@@ -46,11 +46,11 @@ return [
     | Here you can specify UI settings.
     |
     */
-
     'admin_sidebar' => [
         'background' => 'linear-gradient(to right, #000529 0%,#002055 0%,#005db5 67%,#0074d9 100%)',
     ],
     'breadcrumb' => true,
+    'theme2' => false, //secondary theme for dashboard
     /*
     |--------------------------------------------------------------------------
     | Upload config
@@ -171,6 +171,9 @@ return [
         'screen' => [
             'search' => true,
             'maximum_role_selection' => 0, //set 0 if screen can have multiple roles.
+        ],
+        'module' => [
+            'search' => true,
         ],
         'menu' => [
             'search' => true,

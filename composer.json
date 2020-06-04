@@ -3,6 +3,9 @@
     "description": "Laravel Admin Panel",
     "keywords":["laravel", "laravel-admin", "admin", "admin panel"],
     "license": "MIT",
+    "support": {
+        "docs": "https://karthicksivakumar191194.github.io/larasnap/"
+    },
     "authors": [
         {
             "name": "Karthick Sivakumar",

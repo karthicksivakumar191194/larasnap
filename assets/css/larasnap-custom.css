@@ -1,4 +1,7 @@
 /*global style*/
+.mt-10{
+	margin-top: 10px;
+}
 .mb-10{
 	margin-bottom: 10px;
 }
@@ -25,20 +28,6 @@
 	color: #3a3b45 !important;
 }
 /*global style*/
-/* Admin Optional - Style 1 */
-/*.sidebar-dark .sidebar-brand{
-   background: #367fa9 !important;
-}
-.bg-gradient-primary{
-   background: #222d32 !important;   
-}
-.topbar{
-    background: #3c8dbc !important;
-}
-.topbar a#alertsDropdown, .topbar a span{
-    color: #fff !important;
-}*/
-/* Admin Optional - Style 1 */
 /*error page style*/
 #error-main{
 	display: -webkit-box;
@@ -56,7 +45,44 @@
 	height: 100vh;
 }
 /*error page style*/
-
+/*Role Page Style*/
+.rolemanagement-assignscreen .accordion{
+    margin-bottom: 10px;
+}
+/*Role Page Style*/
+/*Screen Page Style*/
+.add-module{
+    text-decoration: underline;
+    cursor: pointer;
+}
+.hide-add-module{
+    display: none;
+}
+#add-module button{
+    background-color: #EFEFEF;
+}
+#autocompleteList ul{  
+    background-color:#eee;  
+    cursor:pointer;  
+}  
+#autocompleteList li{  
+    padding: 5px 10px;
+    border-bottom: 1px solid #fff;  
+}
+#autocompleteList li:hover{  
+    background-color: #ddd; 
+}
+#autocompleteList li span{ 
+    position: absolute;
+    right: 20px;
+    font-weight: bold;
+}    
+/*Screen Page Style*/
+/*Module Page Style*/
+.module-add, .module-edit-form{
+   display: none;
+}
+/*Module Page Style*/
 /*Menu Builder page style*/
 .dd {
 	font-size: 13px;

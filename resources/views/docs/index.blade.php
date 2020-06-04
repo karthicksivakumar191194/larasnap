@@ -61,6 +61,7 @@
                                                 <li>Assign Screen to Role</li>
                                                 <ul class="sub-points">
                                                     <li>Role can access multiple or single screen.</li>
+                                                    <li>Screens are grouped based on the modules mapped.</li>
                                                 </ul>
                                             </ul>
                                         </div>
@@ -117,6 +118,7 @@
                                                 <li>Role Mapped to Screen</li>
                                                 <li>Screen Mapped to Role</li>
                                             </ul>
+                                            <p><b>Module</b> field on the add/edit screen is used for mapping the screen to a module.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -127,9 +129,30 @@
                                 <div id="accordion5" class="accordion">
                                     <div class="card mb-0">
                                         <div class="card-header collapsed" data-toggle="collapse" href="#collapseFive">
-                                            <a class="card-title"> Menu </a>
+                                            <a class="card-title"> Module </a>
                                         </div>
                                         <div id="collapseFive" class="card-body collapse" data-parent="#accordion5">
+                                            <strong>Module: </strong>Module Management
+                                            <br>
+                                            <strong>Functionalities: </strong>
+                                            <ul>
+                                                <li>Create Module</li>
+                                                <li>Edit Module</li>
+                                                <li>Delete Module</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- CONTENT -->
+                            </div>
+                            <div class="col-md-6">
+                                <!-- CONTENT -->
+                                <div id="accordion6" class="accordion">
+                                    <div class="card mb-0">
+                                        <div class="card-header collapsed" data-toggle="collapse" href="#collapseSix">
+                                            <a class="card-title"> Menu </a>
+                                        </div>
+                                        <div id="collapseSix" class="card-body collapse" data-parent="#accordion6">
                                             <strong>Module: </strong>Menu Management
                                             <br>
                                             <strong>Functionalities: </strong>
@@ -146,12 +169,12 @@
                             </div>
                             <div class="col-md-6">
                                 <!-- CONTENT -->
-                                <div id="accordion6" class="accordion">
+                                <div id="accordion7" class="accordion">
                                     <div class="card mb-0">
-                                        <div class="card-header collapsed" data-toggle="collapse" href="#collapseSix">
+                                        <div class="card-header collapsed" data-toggle="collapse" href="#collapseSeven">
                                             <a class="card-title"> Menu Item</a>
                                         </div>
-                                        <div id="collapseSix" class="card-body collapse" data-parent="#accordion6">
+                                        <div id="collapseSeven" class="card-body collapse" data-parent="#accordion7">
                                             <strong>Module: </strong>Menu Management
                                             <br>
                                             <strong>Functionalities: </strong>
@@ -176,12 +199,12 @@
                             </div>
                             <div class="col-md-6">
                                 <!-- CONTENT -->
-                                <div id="accordion7" class="accordion">
+                                <div id="accordion8" class="accordion">
                                     <div class="card mb-0">
-                                        <div class="card-header collapsed" data-toggle="collapse" href="#collapseSeven">
+                                        <div class="card-header collapsed" data-toggle="collapse" href="#collapseEight">
                                             <a class="card-title"> Site Setting</a>
                                         </div>
-                                        <div id="collapseSeven" class="card-body collapse" data-parent="#accordion7">
+                                        <div id="collapseEight" class="card-body collapse" data-parent="#accordion8">
                                             <p>General settings of the application.</p>
                                         </div>
                                     </div>

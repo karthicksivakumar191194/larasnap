@@ -5,9 +5,11 @@ namespace LaraSnap\LaravelAdmin\Controller;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Validator;
 use LaraSnap\LaravelAdmin\Requests\ScreenRequest;
 use LaraSnap\LaravelAdmin\Services\ScreenService;
 use LaraSnap\LaravelAdmin\Models\Screen;
+use LaraSnap\LaravelAdmin\Models\Module;
 use LaraSnap\LaravelAdmin\Traits\Role;
 
 class ScreenController extends Controller
@@ -32,7 +34,7 @@ class ScreenController extends Controller
     public function index(Request $request)
     {
         $filter_request = $this->screenService->filterValue($request); //filter request
-        $screens = $this->screenService->index($filter_request);
+        $screens = $this->screenService->index($filter_request);  
 
         return view('larasnap::screens.index')->with(['screens' => $screens, 'filters' => $filter_request]);
     }
@@ -80,7 +82,7 @@ class ScreenController extends Controller
     public function edit($id)
     {
 		try {
-			$screen = Screen::findOrFail($id);
+			$screen = Screen::with('module')->findOrFail($id);
 		}catch (ModelNotFoundException $exception) {
 			return redirect()->route('screens.index')->withError('Screen not found by ID ' .$id);
 		}
@@ -114,7 +116,7 @@ class ScreenController extends Controller
         return redirect()->route('screens.index')->withSuccess('Screen successfully deleted.');
     }
 	
-	 /**
+	/**
      * Show the form for assigning roles to the specified screen.
      *
      */
@@ -156,5 +158,56 @@ class ScreenController extends Controller
         }
 
         return redirect()->route('screens.index')->withSuccess('Roles assigned to screen successfully.');
+    }
+    
+    /**
+     * Display modules based on input - AutoComplete.
+     *
+     */
+    public function getModules(Request $request)
+    {   $input = $request->input;
+        $modules = Module::where('label', 'LIKE', '%' . $input . '%')->get(); 
+        
+        if (!$modules->isEmpty()) { 
+              $output = '<ul class="list-unstyled">';
+              foreach($modules as $module){
+                    $output .= '<li data-id="'.$module->id.'" data-value="'.$module->label.'">'.$module->label.'</li>';
+              }
+              $output .= '</ul>';
+              echo $output;
+              //return response()->json(['data'=> $output ]);
+        }
+        
+    }
+    
+    /**
+     * Store a newly created module in storage.
+     *
+     */
+    public function storeModule(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'input' => 'required|unique:modules,label',
+        ], ['input.required' => 'The new module field is required.', 'input.unique' => 'The new module has already been taken.' ]);
+        
+        if ($validator->passes()) {
+            $module = new Module;
+            $module->label = $request->input;
+            $module->save();
+            
+            $data = ['id' => $module->id, 'label' => $request->input];
+            return response()->json(['success'=>'Added new module successfully.', 'data' => $data]);
+        }
+        //return response()->json(['error'=>$validator->errors()->all()]); This will return error msg without field name
+        return response()->json(['error'=>$validator->errors()]); //This will return error msg with field name
+     }
+    
+    /**
+     * Remove the specified module from storage.
+     *
+     */
+    public function destroyModule($id)
+    {
+
     }
 }

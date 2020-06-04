@@ -3,26 +3,26 @@
 namespace LaraSnap\LaravelAdmin\Services;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use LaraSnap\LaravelAdmin\Models\Screen;
-use LaraSnap\LaravelAdmin\Filters\ScreenFilters;
+use LaraSnap\LaravelAdmin\Models\Module;
+use LaraSnap\LaravelAdmin\Filters\ModuleFilters;
 
-class ScreenService{
+class ModuleService{
 
     private $filters;
 
     /**
-     * Injecting ScreenFilters.
+     * Injecting ModuleFilters.
      */
-    public function __construct(ScreenFilters $filters)
+    public function __construct(ModuleFilters $filters)
     {
         $this->filters = $filters;
     }
 	
 	public function index($filter_request){
 		$entriesPerPage = setting('entries_per_page');
-        $screens = Screen::with('module:id,label')->filter($this->filters, $filter_request)->select('id', 'name', 'label', 'module_id')->orderBy('id', 'DESC')->paginate($entriesPerPage);
+        $modules = Module::filter($this->filters, $filter_request)->select('id', 'label')->orderBy('id', 'DESC')->paginate($entriesPerPage);
 
-		return $screens;
+		return $modules;
 	}
 
     // return filter request values
@@ -57,12 +57,12 @@ class ScreenService{
         //default value
         if($request->filled($filter_type)) {
             $data = $request->{$filter_type};
-            session(['screen_' . $filter_type => $data]);
+            session(['module_' . $filter_type => $data]);
         }elseif($request->has($filter_type) && $request->{$filter_type} == '' ){
-            session(['screen_' . $filter_type => '']);
+            session(['module_' . $filter_type => '']);
             $data = $filters[$filter_type];
-        }elseif(session('screen_'.$filter_type)){
-            $data = session('screen_'.$filter_type);
+        }elseif(session('module_'.$filter_type)){
+            $data = session('module_'.$filter_type);
         }else{
             $data = $filters[$filter_type];
         }
@@ -71,31 +71,28 @@ class ScreenService{
     }
 
     public function deleteFilterSessionData($request, $filter_key){
-        $request->session()->forget('screen_'.$filter_key);
+        $request->session()->forget('module_'.$filter_key);
     }
 
 	public function store($request){
-		$screen = new Screen;
-		$screen->name = $request->name;
-		$screen->label = $request->label;
-		$screen->module_id = $request->module_id;
-		$screen->save();
+		$module = new Module;
+		$module->label = $request->label;
+		$module->save();
 		
-		return $screen;
+		return $module;
 	}
 
 	public function update($request, $id){
-		$screen = Screen::find($id);
-		$screen->name = $request->name;
-		$screen->label = $request->label;
-		$screen->save();
+		$module = Module::find($id);
+		$module->label = $request->label;
+		$module->save();
 		
-		return $screen;
+		return $module;
 	}
 
     public function destroy($id){
-        $screen = Screen::destroy($id);
+        $module = Module::destroy($id);
 
-        return $screen;
+        return $module;
     }
 }

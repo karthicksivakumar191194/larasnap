@@ -2,12 +2,11 @@
 
 namespace LaraSnap\LaravelAdmin\Requests;
 
-use LaraSnap\LaravelAdmin\Models\Screen;
+use LaraSnap\LaravelAdmin\Models\Module;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
-use LaraSnap\LaravelAdmin\Rules\CheckRouteName;
 
-class ScreenRequest extends FormRequest
+class ModuleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,17 +24,11 @@ class ScreenRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {
+    {  
         return [
-            'name' => [
-                'required', Rule::unique((new Screen)->getTable())->ignore($this->route()->screen ?? null), new CheckRouteName
-            ],
-			'label' => [
-                'required'
-            ],
-            'module_id' => [
-                'required'
-            ],
+            'label' => [
+                'required', Rule::unique((new Module)->getTable())->ignore($this->route()->module ?? null)
+            ],			
         ];
     }
     
@@ -46,8 +39,6 @@ class ScreenRequest extends FormRequest
      */
     public function messages()
     {
-        return [
-            'module_id.required' => 'The module field is required. Please select valid module from the auto-complete list.',
-        ];
+        return [];
     }
 }

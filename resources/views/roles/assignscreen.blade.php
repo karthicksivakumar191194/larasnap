@@ -19,15 +19,32 @@
                             @csrf
                             <div class="checkbox">
                                 <label><input type="checkbox" id="bulk-checkall" > <strong>Check All Screens</strong></label>
-                            </div>
-                            @forelse($screens as $name => $id)
-                                <div class="checkbox">
-                                    <label><input type="checkbox" @if(in_array($id, $role_screens)) checked @endif class="assign-check bulk-check" value="{{ $id }}" name="screens[]" data-msg="screen per role"> {{ $name }}</label>
+                            <div class="row">
+                                @forelse($modules as $id => $module)
+                                <div class="col-md-6">
+                                <!-- CONTENT -->
+                                <div id="accordion" class="accordion">
+                                    <div class="card mb-0">
+                                        <div class="card-header collapsed" data-toggle="collapse" href="#collapse{{ $id }}">
+                                            <a class="card-title"> {{ $module->label }} ({{$module->screens_count}})</a>
+                                        </div>
+                                        <div id="collapse{{ $id }}" class="card-body collapse" data-parent="#accordion">
+                                                @forelse($module->screens as $id => $screen)
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" @if(in_array($screen->id, $role_screens)) checked @endif class="assign-check bulk-check" value="{{ $screen->id }}" name="screens[]" data-msg="screen per role"> {{ $screen->label }}</label>
+                                                    </div>
+                                                @empty
+                                                @endforelse                                               
+                                        </div>
+                                    </div>
                                 </div>
-                            @empty
-                                <p>No Screen</p>
-                            @endforelse
-                            <input type="submit" value="Submit" class="btn btn-primary">
+                                <!-- CONTENT -->
+                                </div>
+                                @empty
+                                    <p>No Module</p>
+                                @endforelse
+                            </div>                           
+                            <input type="submit" value="Submit" class="btn btn-primary mt-10">
                         </form>
                     </div>
                 </div>

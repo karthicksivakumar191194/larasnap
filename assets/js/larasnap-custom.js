@@ -94,7 +94,48 @@ $(document).ready(function () {
             }
         });
     }
-
+    
+    /*Auto Complete - Inputs: .autocomplete | .autocomplete-value | .autocomplete-id | #autocompleteList | #autocompleteList > data-id, data-value*/
+    $('.autocomplete').keyup(function(e){
+         $('.autocomplete-id').val('');
+        /*When Backspace or Delete is hit, clear the 'id' & close the autocomplete list*/
+        if (e.keyCode == 8 || e.keyCode == 46) { 
+           closeAutoCompleteList();
+        }
+        var input = $(this).val();  
+        if(input != '' && typeof autocomplete_url !== 'undefined' && autocomplete_url !== ''){
+             $.ajax({  
+                url:autocomplete_url,  
+                type:"GET",  
+                data:{input:input},
+                beforeSend:function(){
+                   $('#autocompleteList').html('');  
+                },    
+                success:function(data){  
+                    //console.log('AutoComplete Success Response: ', data);
+                    $('#autocompleteList').fadeIn();  
+                    $('#autocompleteList').html(data);  
+                },
+                error:function(er){
+                    console.log('AutoComplete Error: ', er);
+                }    
+            });
+        }
+    }); 
+    //click event on dynamically added elements
+    $('#autocompleteList').on('click', 'li', function(){ 
+        var id = $(this).attr('data-id');
+        var value = $(this).attr('data-value');
+        $('.autocomplete-value').val(value);
+        $('.autocomplete-id').val(id);
+        closeAutoCompleteList();
+    });
+    
+    function closeAutoCompleteList(){
+       $('#autocompleteList').fadeOut();  
+       $('#autocompleteList').html(''); 
+    }
+    
     /*disallow cut, copy, paste for password fields*/
     $('input[type=password]').on("cut copy paste",function(e) {
         e.preventDefault();
@@ -110,5 +151,129 @@ $(document).ready(function () {
         $(this).val($(this).val().toLowerCase());
         $(this).val($(this).val().replace(' ', '-'));
     });
-
+    
+    /*screen - add module | show input field - Inputs: .add-module*/
+    $(".add-module").on('click', function(){
+        var targetID = '#' + $(this).attr('class'); 
+        if($(targetID).is(":visible")){
+           $(targetID).addClass('hide-add-module'); 
+        }else{
+           $(targetID + ' input').val(''); 
+           $(targetID + ' #new-module-error').remove(); //dynamically generated element 
+           $(targetID).removeClass('hide-add-module'); 
+        }
+    });
+    /*screen - add module | save new module to storage - Inputs: #add-new-module, #new-module, #add-module*/
+    $("#add-new-module").click(function(){
+        var input = $("#new-module").val();
+        if(input == ''){
+            $("#new-module").after('<span id="new-module-error" class="text-danger dy-err">The new module field is required.</span>');
+            return;
+        }else{
+            $("#new-module-error").remove(); //dynamically generated element 
+        }
+        
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({  
+           url:autocomplete_url,  
+           type:"POST",  
+           data:{input:input},
+           beforeSend:function(){
+                $("#new-module-error").remove(); //dynamically generated element 
+           },    
+           success:function(data){  
+               console.log('New Module Add Success Response: ', data);
+               if('error' in data){
+                   $("#new-module").after('<span id="module-field-error" class="text-danger dy-err">' + data.error.input[0] + '</span>');
+               }
+               if(typeof data !== 'undefined' && typeof data.success !== 'undefined' ){
+                   $('#add-module').addClass('hide-add-module'); 
+                   alert(data.success);
+               }
+           },
+           error:function(er){
+               console.log('New Module Add Error: ', er);
+           }    
+         });       
+    });
+    
+    /*Module Add - Inputs: .module-add-form, .module-edit-form, #module-label, .module-add*/
+    $(".module-add").on('click', function(e){
+        e.preventDefault();
+        $(".module-add-form").show();
+        $(".module-edit-form").hide();
+        $("#module-field-error").remove(); //dynamically generated error element 
+        $("#module-label").focus();
+        $(".module-add").hide();
+    });
+    
+    /*Module Edit - Inputs: .module-add-form, .module-edit-form, #module-edit-label, #module-edit-id, .module-add*/
+    $(".module-edit").on('click', function(e){
+        e.preventDefault();
+        var id = $(this).attr('data-id');
+        var label = $(this).attr('data-label');
+        $(".module-add-form").hide();
+        $(".module-edit-form").show();
+        $("#module-field-error").remove(); //dynamically generated error element 
+        $("#module-edit-label").val(label);
+        $("#module-edit-label").focus();
+        $("#module-edit-id").val(id);
+        $(".module-add").show();
+    });
+    
+    /*Module add & update - Inputs: #module-submit, #module-update, .module-add-form, #module-label, .module-add-form form, .module-edit-form, #module-edit-label, .module-edit-form form, #module-edit-id*/
+    $("#module-submit, #module-update").click(function(e){ 
+        e.preventDefault();
+        
+        if($(".module-add-form").is(':visible')){ 
+             var ref = $("#module-label");
+             var input = ref.val();
+             var url = $(".module-add-form form").attr('action');
+             var type = 'POST';
+        }else if($(".module-edit-form").is(':visible')){ 
+             var ref = $("#module-edit-label");
+             var input = ref.val();
+             var url = $(".module-edit-form form").attr('action') + '/' + $("#module-edit-id").val();
+             var type = 'PUT';
+        }else{ 
+            return
+        }
+        
+        if(input == ''){
+            ref.after('<span id="module-field-error" class="text-danger dy-err">The label field is required.</span>');
+            return;
+        }else{
+            $("#module-field-error").remove(); //dynamically generated element 
+        }
+        
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({  
+           url: url,  
+           type: type,  
+           data:{label:input},
+           beforeSend:function(){
+                $("#module-field-error").remove(); //dynamically generated element
+           },    
+           success:function(data){  
+               console.log('Module CRUD Success Response: ', data);
+               location.reload();
+           },
+           error:function(er){
+               console.log('Module CRUD Error: ', er);
+               var validationError = er.responseJSON;
+               if('errors' in validationError){
+                   ref.after('<span id="module-field-error" class="text-danger dy-err">' + validationError.errors.label[0] + '</span>');
+               }
+           }    
+         });       
+    });
+    
 });

@@ -12,7 +12,7 @@
       <div class="card shadow mb-4">
          <div class="card-body">
             <div class="card-body">
-				<form  method="POST" action="{{ route('screens.index') }}" id="list-form" class="form-inline my-2 my-lg-0">
+				<form  method="POST" action="{{ route('screens.index') }}" id="list-form" class="form-inline my-2 my-lg-0" >
                     @method('POST')
                     @csrf
 			   <div class="col-md-2 pad-0">
@@ -21,8 +21,14 @@
                </a>
                    @endcanAccess
 			   </div>
+               <div class="col-md-2 pad-0">
+                   @canAccess('modules.index')
+               <a href="{{ route('modules.index') }}" title="Manage Modules" class="btn btn-primary btn-sm">Manage Modules
+               </a>
+                   @endcanAccess
+			   </div>
 				<!-- list filters -->
-				<div class="col-md-10 filters">
+				<div class="col-md-8 filters">
 					@include('larasnap::list-filters.screen')
 				</div>	
 				<!-- list filters -->
@@ -34,6 +40,7 @@
                            <th>ID</th>
                            <th>Name(Slug)</th>
                            <th>Label</th>
+                           <th>Module</th>
                            <th>Actions</th>
                         </tr>
                      </thead>
@@ -43,6 +50,7 @@
                            <td>{{ $screen->id }}</td>
                            <td>{{ $screen->name }}</td>
                            <td>{{ $screen->label }}</td>
+                           <td>{{ $screen->module ? $screen->module->label : '' }}</td>
                            <td>
                                @canAccess('screens.edit')
 							  <a href="{{ route('screens.edit', $screen->id) }}" title="Edit Screen"><button class="btn btn-primary btn-sm" type="button"><i aria-hidden="true" class="fa fa-pencil-square-o"></i></button></a>

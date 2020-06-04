@@ -36,7 +36,6 @@ Route::group(['namespace' => '\LaraSnap\LaravelAdmin\Controller','prefix' => 'ad
             Route::post('create','RoleController@store')->name('roles.store');
             Route::get('{role}/edit','RoleController@edit')->name('roles.edit');
             Route::put('{role}','RoleController@update')->name('roles.update');
-            Route::get('{role}','RoleController@show')->name('roles.show');
             Route::delete('{role}','RoleController@destroy')->name('roles.destroy');
             Route::get('{role}/permissions','RoleController@assignPermissionCreate')->name('roles.assignpermission_create');
             Route::post('{role}/permissions','RoleController@assignPermissionStore')->name('roles.assignpermission_store');
@@ -53,25 +52,38 @@ Route::group(['namespace' => '\LaraSnap\LaravelAdmin\Controller','prefix' => 'ad
             Route::post('create','PermissionController@store')->name('permissions.store');
             Route::get('{permission}/edit','PermissionController@edit')->name('permissions.edit');
             Route::put('{permission}','PermissionController@update')->name('permissions.update');
-            Route::get('{permission}','PermissionController@show')->name('permissions.show');
             Route::delete('{permission}','PermissionController@destroy')->name('permissions.destroy');
         });
         /** PERMISSION ROUTES **/		
         
         /** SCREEN ROUTES **/
-        Route::group(['prefix' => 'screens', 'exculde' => ['screens.filter', 'screens.store', 'screens.update', 'screens.assignrole_store']], function(){
+        Route::group(['prefix' => 'screens', 'exculde' => ['screens.filter', 'screens.store', 'screens.update', 'screens.assignrole_store', 'screens.modules', 'screens.modules_store', 'screens.modules_destroy']], function(){
             Route::get('/','ScreenController@index')->name('screens.index');
             Route::post('/','ScreenController@index')->name('screens.filter');
             Route::get('create','ScreenController@create')->name('screens.create');
             Route::post('create','ScreenController@store')->name('screens.store');
             Route::get('{screen}/edit','ScreenController@edit')->name('screens.edit');
             Route::put('{screen}','ScreenController@update')->name('screens.update');
-            Route::get('{screen}','ScreenController@show')->name('screens.show');
             Route::delete('{screen}','ScreenController@destroy')->name('screens.destroy');
             Route::get('{screen}/roles','ScreenController@assignRoleCreate')->name('screens.assignrole_create');
-            Route::post('{screen}/roles','ScreenController@assignRoleStore')->name('screens.assignrole_store');	
+            Route::post('{screen}/roles','ScreenController@assignRoleStore')->name('screens.assignrole_store');
+            Route::get('modules','ScreenController@getModules')->name('screens.modules');
+            Route::post('modules','ScreenController@storeModule')->name('screens.modules_store');
+            Route::delete('modules/{module}','ScreenController@destroyModule')->name('screens.modules_destroy');
         });
         /** SCREEN ROUTES **/
+        
+        /** MODULE ROUTES **/
+        Route::group(['prefix' => 'modules', 'exculde' => ['modules.filter', 'modules.store', 'modules.update']], function(){
+            Route::get('/','ModuleController@index')->name('modules.index');
+            Route::post('/','ModuleController@index')->name('modules.filter');
+            Route::get('create','ModuleController@create')->name('modules.create');
+            Route::post('create','ModuleController@store')->name('modules.store');
+            Route::get('{module}/edit','ModuleController@edit')->name('modules.edit');
+            Route::put('{module}','ModuleController@update')->name('modules.update');
+            Route::delete('{module}','ModuleController@destroy')->name('modules.destroy');
+        });
+        /** MODULE ROUTES **/
     
         /** MENU ROUTES **/
         Route::group(['prefix' => 'menus', 'exculde' => ['menus.filter', 'menus.store', 'menus.update', 'menus.order', 'menus.item_store', 'menus.item_update', 'menus.item.destory']], function(){
@@ -81,7 +93,6 @@ Route::group(['namespace' => '\LaraSnap\LaravelAdmin\Controller','prefix' => 'ad
             Route::post('create','MenuController@store')->name('menus.store');
             Route::get('{menu}/edit','MenuController@edit')->name('menus.edit');
             Route::put('{menu}','MenuController@update')->name('menus.update');
-            Route::get('{menu}','MenuController@show')->name('menus.show');
             Route::delete('{menu}','MenuController@destroy')->name('menus.destroy');
             Route::get('{menu}/builder','MenuController@builder')->name('menus.builder');
             Route::post('{menu}/order','MenuController@orderItem')->name('menus.order');
