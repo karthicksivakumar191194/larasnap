@@ -88,6 +88,7 @@ class ScreenService{
 		$screen = Screen::find($id);
 		$screen->name = $request->name;
 		$screen->label = $request->label;
+        $screen->module_id = $request->module_id;
 		$screen->save();
 		
 		return $screen;

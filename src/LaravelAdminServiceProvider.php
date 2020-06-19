@@ -3,8 +3,9 @@
 namespace LaraSnap\LaravelAdmin;
 
 use Illuminate\Support\ServiceProvider;
-use LaraSnap\LaravelAdmin\Commands\InstallCommand;
 use Illuminate\Support\Facades\Blade;
+use LaraSnap\LaravelAdmin\Commands\InstallCommand;
+use LaraSnap\LaravelAdmin\Models\Screen;
 
 class LaravelAdminServiceProvider extends ServiceProvider{
 	
@@ -75,7 +76,26 @@ class LaravelAdminServiceProvider extends ServiceProvider{
             }else{
                 return FALSE;
             }
-            return TRUE;
+        });
+        Blade::if('canAccessCategory', function ($screen_name) {
+            $currentRoute = \Route::current();
+            $parentCategoryID = $currentRoute->parameters['p_category'];
+            $newScreenName = $screen_name .'.'. $parentCategoryID;
+            //Check if new screen added on the DB    
+            $isNewScreenExists = Screen::where('name', $newScreenName)->exists();
+            if($isNewScreenExists){
+                // Get the required roles for the route(new screen)
+                $screenRoles = auth()->user()->getRequiredRoleForRoute($newScreenName);
+            }else{
+                // Get the required roles for the route(screen - argument passed)
+                $screenRoles = auth()->user()->getRequiredRoleForRoute($screen_name);
+            }
+            // Check if a role is required for the route, and if so, ensure that the user has that role.
+            if (auth()->user()->hasRole($screenRoles)) {
+                return TRUE;
+            }else{
+                return FALSE;
+            }
         });
     }
 }

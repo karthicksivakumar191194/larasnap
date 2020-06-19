@@ -55,7 +55,7 @@ class LaraSnapSeeder extends Seeder
         $user->assignRole($role->id);
 
         //Module
-        Module::whereIn('label', ['Dashboard', 'User Management', 'Role Management', 'Permission Management', 'Screen Management', 'Module Management', 'Menu Management', 'Settings', 'Documentation'])->delete();
+        Module::whereIn('label', ['Dashboard', 'User Management', 'Role Management', 'Permission Management', 'Screen Management', 'Module Management', 'Menu Management', 'Category Management', 'Settings', 'Documentation'])->delete();
         
         $module1 = new Module;
         $module1->label = 'Dashboard';
@@ -86,12 +86,16 @@ class LaraSnapSeeder extends Seeder
         $module7->save();  
 
         $module8 = new Module;
-        $module8->label = 'Settings';
+        $module8->label = 'Category Management';
         $module8->save(); 
-
+        
         $module9 = new Module;
-        $module9->label = 'Documentation';
-        $module9->save();         
+        $module9->label = 'Settings';
+        $module9->save(); 
+
+        $module10 = new Module;
+        $module10->label = 'Documentation';
+        $module10->save();         
         
         //Screen Seed & Role Screen Mapping Seed
         Screen::whereIn('name', ['dashboard', 'users.index', 'users.create', 'users.edit', 'users.show', 'users.destroy', 'users.assignrole_create', 'roles.index', 'roles.create', 'roles.edit', 'roles.destroy', 'roles.assignpermission_create', 'roles.assignscreen_create', 'permissions.index', 'permissions.create', 'permissions.edit', 'permissions.destroy', 'screens.index', 'screens.create', 'screens.edit', 'screens.destroy', 'screens.assignrole_create', 'modules.index', 'modules.create', 'modules.edit','modules.destroy', 'menus.index', 'menus.create', 'menus.edit', 'menus.destroy', 'menus.builder', 'settings.create', 'docs.index', 'docs.icons'])->delete();
@@ -130,9 +134,17 @@ class LaraSnapSeeder extends Seeder
             ['name' => 'menus.edit','label' => 'Menu Edit', 'module_id' => $module7->id],
             ['name' => 'menus.destroy','label' => 'Menu Delete', 'module_id' => $module7->id],
             ['name' => 'menus.builder','label' => 'Menu-Builder', 'module_id' => $module7->id],
-            ['name' => 'settings.create','label' => 'Settings', 'module_id' => $module8->id],
-            ['name' => 'docs.index','label' => 'Document', 'module_id' => $module9->id],
-            ['name' => 'docs.icons','label' => 'Icons', 'module_id' => $module9->id],
+            ['name' => 'p_categories.index','label' => 'Parent Category List', 'module_id' => $module8->id],
+            ['name' => 'p_categories.create','label' => 'Parent Category Create', 'module_id' => $module8->id],
+            ['name' => 'p_categories.edit','label' => 'Parent Category Edit', 'module_id' => $module8->id],
+            ['name' => 'p_categories.destroy','label' => 'Parent Category Delete', 'module_id' => $module8->id],
+            ['name' => 'categories.index','label' => 'Category List', 'module_id' => $module8->id],
+            ['name' => 'categories.create','label' => 'Category Create', 'module_id' => $module8->id],
+            ['name' => 'categories.edit','label' => 'Category Edit', 'module_id' => $module8->id],
+            ['name' => 'categories.destroy','label' => 'Category Delete', 'module_id' => $module8->id],
+            ['name' => 'settings.create','label' => 'Settings', 'module_id' => $module9->id],
+            ['name' => 'docs.index','label' => 'Document', 'module_id' => $module10->id],
+            ['name' => 'docs.icons','label' => 'Icons', 'module_id' => $module10->id],
         ];
         
         foreach ($screens as $screen){

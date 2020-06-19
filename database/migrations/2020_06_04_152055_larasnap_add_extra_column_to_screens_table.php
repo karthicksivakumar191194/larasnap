@@ -14,7 +14,7 @@ class LarasnapAddExtraColumnToScreensTable extends Migration
     public function up()
     {
         Schema::table('screens', function (Blueprint $table) {
-            $table->bigInteger('module_id')->unsigned();
+            $table->bigInteger('module_id')->unsigned()->after('label');
         });
     }
 

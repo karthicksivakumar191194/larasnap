@@ -98,6 +98,26 @@ Route::group(['namespace' => '\LaraSnap\LaravelAdmin\Controller','prefix' => 'ad
         });
         /** MENU ROUTES **/
         
+        /** CATEGORY ROUTES **/
+        Route::group(['prefix' => 'categories', 'exculde' => ['p_categories.filter', 'p_categories.store', 'p_categories.update', 'categories.filter', 'categories.store', 'categories.update']], function(){
+            Route::get('/','CategoryParentController@index')->name('p_categories.index');
+            Route::post('/','CategoryParentController@index')->name('p_categories.filter');
+            Route::get('create','CategoryParentController@create')->name('p_categories.create');
+            Route::post('create','CategoryParentController@store')->name('p_categories.store');
+            Route::get('{p_category}/edit','CategoryParentController@edit')->name('p_categories.edit');
+            Route::put('{p_category}','CategoryParentController@update')->name('p_categories.update');
+            Route::delete('{p_category}','CategoryParentController@destroy')->name('p_categories.destroy');
+            
+            Route::get('{p_category}','CategoryController@index')->name('categories.index');
+            Route::post('{p_category}','CategoryController@index')->name('categories.filter');
+            Route::get('{p_category}/create','CategoryController@create')->name('categories.create');
+            Route::post('{p_category}/create','CategoryController@store')->name('categories.store');
+            Route::get('/{p_category}/{category}/edit','CategoryController@edit')->name('categories.edit');
+            Route::put('{p_category}/{category}','CategoryController@update')->name('categories.update');
+            Route::delete('{p_category}/{category}','CategoryController@destroy')->name('categories.destroy');
+        });
+        /** CATEGORY ROUTES **/
+        
         /** SETTING ROUTES **/
         Route::group(['prefix' => 'settings', 'exculde' => ['settings.store']], function(){
             Route::get('/','SiteSettingController@create')->name('settings.create');

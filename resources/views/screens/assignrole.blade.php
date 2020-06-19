@@ -17,9 +17,11 @@
                <br> <br> 
                <form action="{{ route('screens.assignrole_store', $screen->id) }}" method="POST">
 			      @csrf
+                  @if($roles->isNotEmpty())
                   <div class="checkbox">
                      <label><input type="checkbox" id="bulk-checkall" > <strong>Check All Roles</strong></label>
                   </div>
+                  @endif
                   @forelse($roles as $name => $id)
                   <div class="checkbox">
                      <label><input type="checkbox" @if(in_array($id, $screen_roles)) checked @endif class="assign-check bulk-check" value="{{ $id }}" name="roles[]" data-msg="role per screen"> {{ $name }}</label>
@@ -27,7 +29,9 @@
                   @empty
                   <p>No Roles</p>
                   @endforelse
-                  <input type="submit" value="Submit" class="btn btn-primary"> 
+                  @if($roles->isNotEmpty())    
+                        <input type="submit" value="Submit" class="btn btn-primary"> 
+                   @endif
                </form>
             </div>
          </div>

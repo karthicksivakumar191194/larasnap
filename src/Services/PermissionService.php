@@ -8,7 +8,7 @@ use LaraSnap\LaravelAdmin\Filters\PermissionFilters;
 class PermissionService{
 
     /**
-     * Injecting RoleFilters.
+     * Injecting PermissionFilters.
      */
     public function __construct(PermissionFilters $filters)
     {

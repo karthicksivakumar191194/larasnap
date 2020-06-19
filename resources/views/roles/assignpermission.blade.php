@@ -18,7 +18,9 @@
                <form action="{{ route('roles.assignpermission_store', $role->id) }}" method="POST">
 			      @csrf
                   <div class="checkbox">
-                     <label><input type="checkbox" id="bulk-checkall" > <strong>Check All Permissions</strong></label>
+                    @if($permissions->isNotEmpty())
+                        <label><input type="checkbox" id="bulk-checkall" > <strong>Check All Permissions</strong></label>
+                    @endif
                   </div>
                   @forelse($permissions as $name => $id)
                   <div class="checkbox">
@@ -27,7 +29,9 @@
                   @empty
                   <p>No Permission</p>
                   @endforelse
-                  <input type="submit" value="Submit" class="btn btn-primary"> 
+                  @if($permissions->isNotEmpty())
+                        <input type="submit" value="Submit" class="btn btn-primary"> 
+                  @endif
                </form>
             </div>
          </div>

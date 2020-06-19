@@ -178,5 +178,11 @@ return [
         'menu' => [
             'search' => true,
         ],
+        'category_parent' => [
+            'search' => true,
+        ],
+        'category' => [
+            'search' => true,
+        ],
     ],
 ];

@@ -18,7 +18,7 @@
                                 <div id="accordion" class="accordion">
                                     <div class="card mb-0">
                                         <div class="card-header collapsed" data-toggle="collapse" href="#collapseOne">
-                                            <a class="card-title"> User </a>
+                                            <a class="card-title"> User Management</a>
                                         </div>
                                         <div id="collapseOne" class="card-body collapse" data-parent="#accordion">
                                             <strong>Module: </strong>User Management
@@ -44,7 +44,7 @@
                                 <div id="accordion2" class="accordion">
                                     <div class="card mb-0">
                                         <div class="card-header collapsed" data-toggle="collapse" href="#collapseTwo">
-                                            <a class="card-title"> Role </a>
+                                            <a class="card-title"> Role Management</a>
                                         </div>
                                         <div id="collapseTwo" class="card-body collapse" data-parent="#accordion2">
                                             <strong>Module: </strong>Role Management
@@ -74,7 +74,7 @@
                                 <div id="accordion3" class="accordion">
                                     <div class="card mb-0">
                                         <div class="card-header collapsed" data-toggle="collapse" href="#collapseThree">
-                                            <a class="card-title"> Permission </a>
+                                            <a class="card-title"> Permission Management</a>
                                         </div>
                                         <div id="collapseThree" class="card-body collapse" data-parent="#accordion3">
                                             <strong>Module: </strong>Role Management
@@ -95,7 +95,7 @@
                                 <div id="accordion4" class="accordion">
                                     <div class="card mb-0">
                                         <div class="card-header collapsed" data-toggle="collapse" href="#collapseFour">
-                                            <a class="card-title"> Screen </a>
+                                            <a class="card-title"> Screen Management</a>
                                         </div>
                                         <div id="collapseFour" class="card-body collapse" data-parent="#accordion4">
                                             <strong>Module: </strong>Role Management
@@ -129,7 +129,7 @@
                                 <div id="accordion5" class="accordion">
                                     <div class="card mb-0">
                                         <div class="card-header collapsed" data-toggle="collapse" href="#collapseFive">
-                                            <a class="card-title"> Module </a>
+                                            <a class="card-title"> Module Management</a>
                                         </div>
                                         <div id="collapseFive" class="card-body collapse" data-parent="#accordion5">
                                             <strong>Module: </strong>Module Management
@@ -150,7 +150,7 @@
                                 <div id="accordion6" class="accordion">
                                     <div class="card mb-0">
                                         <div class="card-header collapsed" data-toggle="collapse" href="#collapseSix">
-                                            <a class="card-title"> Menu </a>
+                                            <a class="card-title"> Menu Management</a>
                                         </div>
                                         <div id="collapseSix" class="card-body collapse" data-parent="#accordion6">
                                             <strong>Module: </strong>Menu Management
@@ -172,7 +172,7 @@
                                 <div id="accordion7" class="accordion">
                                     <div class="card mb-0">
                                         <div class="card-header collapsed" data-toggle="collapse" href="#collapseSeven">
-                                            <a class="card-title"> Menu Item</a>
+                                            <a class="card-title"> Menu Item Management</a>
                                         </div>
                                         <div id="collapseSeven" class="card-body collapse" data-parent="#accordion7">
                                             <strong>Module: </strong>Menu Management
@@ -202,9 +202,36 @@
                                 <div id="accordion8" class="accordion">
                                     <div class="card mb-0">
                                         <div class="card-header collapsed" data-toggle="collapse" href="#collapseEight">
-                                            <a class="card-title"> Site Setting</a>
+                                            <a class="card-title"> Category Management</a>
                                         </div>
                                         <div id="collapseEight" class="card-body collapse" data-parent="#accordion8">
+                                            <strong>Module: </strong>Category Management
+                                            <br>
+                                            <strong>Functionalities: </strong>
+                                            <ul>
+                                                <li>Create Parent Category</li>
+                                                <li>Edit Parent Category</li>
+                                                <li>Delete Parent Category</li>
+                                                <li>Manage Child Category</li>
+                                            </ul>
+                                             <ul>
+                                                <li>Create Category</li>
+                                                <li>Edit Category</li>
+                                                <li>Delete Category</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- CONTENT -->
+                            </div>
+                            <div class="col-md-6">
+                                <!-- CONTENT -->
+                                <div id="accordion9" class="accordion">
+                                    <div class="card mb-0">
+                                        <div class="card-header collapsed" data-toggle="collapse" href="#collapseNine">
+                                            <a class="card-title"> Site Setting</a>
+                                        </div>
+                                        <div id="collapseNine" class="card-body collapse" data-parent="#accordion9">
                                             <p>General settings of the application.</p>
                                         </div>
                                     </div>

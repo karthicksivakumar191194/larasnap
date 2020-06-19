@@ -18,7 +18,9 @@
                         <form action="" method="POST">
                             @csrf
                             <div class="checkbox">
+                            @if($modules->isNotEmpty())
                                 <label><input type="checkbox" id="bulk-checkall" > <strong>Check All Screens</strong></label>
+                            @endif
                             <div class="row">
                                 @forelse($modules as $id => $module)
                                 <div class="col-md-6">
@@ -43,8 +45,10 @@
                                 @empty
                                     <p>No Module</p>
                                 @endforelse
-                            </div>                           
-                            <input type="submit" value="Submit" class="btn btn-primary mt-10">
+                            </div> 
+                            @if($modules->isNotEmpty())
+                                <input type="submit" value="Submit" class="btn btn-primary mt-10">
+                            @endif
                         </form>
                     </div>
                 </div>

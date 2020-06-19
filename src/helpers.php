@@ -1,5 +1,6 @@
 <?php
 use LaraSnap\LaravelAdmin\Models\Setting;
+use LaraSnap\LaravelAdmin\Models\Category;
 
 /**
  * Helper Desc  : Show image or default image.
@@ -68,4 +69,23 @@ if(!function_exists('larasnapDecrypt')) {
     function larasnapDecrypt($value){
         return base64_decode($value);
     }    
+}
+
+/**
+ * Helper Desc  : Get Categories By Parent Category Slug.
+ * param1       : Parent Category Slug - Required
+ * param2       : Order By Column - Optional | Default - Label
+ * param3       : Order By Direction - Optional | Default - Asc
+ * Return       : List of categories based on parent slug & arguments passed.
+ */
+if (! function_exists('getCategoriesByParentCategory')) {
+    function getCategoriesByParentCategory($parentCategorySlug, $orderByColumn = 'label', $orderByDirection = 'asc'){
+        $parentCategory = Category::where([['name', '=', $parentCategorySlug], ['is_parent', '=', 1], ['status', '=', 1]])
+                    ->whereHas('childCategory', function ($q) use ($orderByColumn, $orderByDirection){
+                            $q->where('status', 1)->orderBy($orderByColumn, $orderByDirection);
+                      })
+                    ->with('childCategory')  
+                    ->first();
+        return $parentCategory ? $parentCategory->childCategory : null;          
+    }
 }

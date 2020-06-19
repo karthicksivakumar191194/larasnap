@@ -17,9 +17,11 @@
                <br> <br> 
                <form action="{{ route('users.assignrole_store', $user->id) }}" method="POST">
 			      @csrf
+                  @if($roles->isNotEmpty())
                   <div class="checkbox">
                      <label><input type="checkbox" id="bulk-checkall" > <strong>Check All Roles</strong></label>
                   </div>
+                  @endif
                   @forelse($roles as $name => $id)
                   <div class="checkbox">
                      <label><input type="checkbox" @if(in_array($id, $user_roles)) checked @endif class="assign-check bulk-check" value="{{ $id }}" name="roles[]" data-msg="role per user"> {{ $name }}</label>
@@ -32,7 +34,9 @@
 						<span class="text-danger">{{ $message }}</span>
 					</div> 
 				  @enderror 	  
-                  <input type="submit" value="Submit" class="btn btn-primary"> 
+                  @if($roles->isNotEmpty())
+                    <input type="submit" value="Submit" class="btn btn-primary"> 
+                  @endif
                </form>
             </div>
          </div>
