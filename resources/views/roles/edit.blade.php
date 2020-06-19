@@ -15,7 +15,7 @@
                <a href="{{ route('roles.index') }}" title="Back to Role List" class="btn btn-warning btn-sm"><i aria-hidden="true" class="fa fa-arrow-left"></i> Back to Role List
                </a> 
                <br> <br> 
-               <form method="POST" action="{{ route('roles.update', $role->id) }}" class="form-horizontal">
+               <form method="POST" action="{{ route('roles.update', $role->id) }}" class="form-horizontal" autocomplete="off">
 			   @csrf
 			   @method('PUT')
                <div class="row">

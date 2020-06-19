@@ -12,7 +12,7 @@
       <div class="card shadow mb-4">
          <div class="card-body">
             <div class="card-body">
-				<form  method="POST" action="{{ route('p_categories.index') }}" id="list-form" class="form-inline my-2 my-lg-0">
+				<form  method="POST" action="{{ route('p_categories.index') }}" id="list-form" class="form-inline my-2 my-lg-0" autocomplete="off">
                     @method('POST')
                     @csrf
 			   <div class="col-md-3 pad-0">

@@ -15,7 +15,7 @@
                <a href="{{ route('users.index') }}" title="Back to User List" class="btn btn-warning btn-sm"><i aria-hidden="true" class="fa fa-arrow-left"></i> Back to User List
                </a> 
                <br> <br> 
-               <form method="POST" action="{{ route('users.store') }}"  enctype="multipart/form-data" class="form-horizontal">
+               <form method="POST" action="{{ route('users.store') }}"  enctype="multipart/form-data" class="form-horizontal" autocomplete="off">
 			   @csrf
                   <div class="row">
 					<div class="col-md-4">

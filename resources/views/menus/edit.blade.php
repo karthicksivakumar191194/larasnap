@@ -15,7 +15,7 @@
 						<a href="{{ route('menus.index') }}" title="Back to Menu List" class="btn btn-warning btn-sm"><i aria-hidden="true" class="fa fa-arrow-left"></i> Back to Menu List
 						</a>
 						<br> <br>
-						<form method="POST" action="{{ route('menus.update', $menu->id) }}" class="form-horizontal">
+						<form method="POST" action="{{ route('menus.update', $menu->id) }}" class="form-horizontal" autocomplete="off">
 							@csrf
 							@method('PUT')
 							<div class="row">

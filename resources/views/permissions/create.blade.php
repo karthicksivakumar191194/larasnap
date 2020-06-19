@@ -15,7 +15,7 @@
                <a href="{{ route('permissions.index') }}" title="Back to Permission List" class="btn btn-warning btn-sm"><i aria-hidden="true" class="fa fa-arrow-left"></i> Back to Permission List
                </a> 
                <br> <br> 
-               <form method="POST" action="{{ route('permissions.store') }}"  class="form-horizontal">
+               <form method="POST" action="{{ route('permissions.store') }}"  class="form-horizontal" autocomplete="off">
                   @csrf
                   <div class="row">
                      <div class="col-md-12">

@@ -12,7 +12,7 @@
       <div class="card shadow mb-4">
          <div class="card-body">
             <div class="card-body">
-               <form method="POST" action="{{ route('settings.store') }}"  class="form-horizontal" enctype="multipart/form-data">
+               <form method="POST" action="{{ route('settings.store') }}"  class="form-horizontal" enctype="multipart/form-data" autocomplete="off">
                   @csrf
                   <div class="row">
                      <div class="col-md-4">

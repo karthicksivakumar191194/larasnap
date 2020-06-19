@@ -15,7 +15,7 @@
                <a href="{{ route('categories.index', 1) }}" title="Back to Category List" class="btn btn-warning btn-sm"><i aria-hidden="true" class="fa fa-arrow-left"></i> Back to Category List
                </a> 
                <br> <br> 
-               <form method="POST" action="{{ route('categories.store', $parentCategoryID) }}"  class="form-horizontal">
+               <form method="POST" action="{{ route('categories.store', $parentCategoryID) }}"  class="form-horizontal" autocomplete="off">
                   @csrf
                   <div class="row">
                      <div class="col-md-12">
