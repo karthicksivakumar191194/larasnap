@@ -203,20 +203,27 @@ class LaraSnapSeeder extends Seeder
             $menuItem6->route  = "menus.index";
 
             $menuItem7 = new MenuItem;
-            $menuItem7->title  = "Site Settings";
-            $menuItem7->icon   = "fa-wrench";
+            $menuItem7->title  = "Category Management";
+            $menuItem7->icon   = "fa-list";
             $menuItem7->order  = 7;
             $menuItem7->target = "_self";
-            $menuItem7->route  = "settings.create";
+            $menuItem7->route  = "p_categories.index";
             
             $menuItem8 = new MenuItem;
-            $menuItem8->title  = "User Guide";
-            $menuItem8->icon   = "fa-book";
+            $menuItem8->title  = "Site Settings";
+            $menuItem8->icon   = "fa-wrench";
             $menuItem8->order  = 8;
             $menuItem8->target = "_self";
-            $menuItem8->route  = "docs.index";
+            $menuItem8->route  = "settings.create";
             
-            $menu = $menu->items()->saveMany([$menuItem1, $menuItem2, $menuItem3, $menuItem4, $menuItem5, $menuItem6, $menuItem7, $menuItem8]);
+            $menuItem9 = new MenuItem;
+            $menuItem9->title  = "User Guide";
+            $menuItem9->icon   = "fa-book";
+            $menuItem9->order  = 9;
+            $menuItem9->target = "_self";
+            $menuItem9->route  = "docs.index";
+            
+            $menu = $menu->items()->saveMany([$menuItem1, $menuItem2, $menuItem3, $menuItem4, $menuItem5, $menuItem6, $menuItem7, $menuItem8, $menuItem9]);
         }
         
         //Setting Seed
