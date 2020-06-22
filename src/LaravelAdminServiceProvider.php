@@ -28,6 +28,7 @@ class LaravelAdminServiceProvider extends ServiceProvider{
         }
 
         $this->bladeCanAccess();
+        $this->bladeUserHasRole();
 	}
 	
 	private function registerPublishableResources(){
@@ -96,6 +97,12 @@ class LaravelAdminServiceProvider extends ServiceProvider{
             }else{
                 return FALSE;
             }
+        });
+    }
+    
+    private function bladeUserHasRole(){
+        Blade::if('userHasRole', function ($roleName) {
+            return userHasRole($roleName);
         });
     }
 }

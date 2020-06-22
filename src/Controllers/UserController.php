@@ -86,7 +86,6 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified user.
      *
-	 * @param  UsertRequest $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -103,7 +102,7 @@ class UserController extends Controller
     /**
      * Update the specified user in storage.
      *
-     * @param  UsertRequest $request
+     * @param  UserRequest $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

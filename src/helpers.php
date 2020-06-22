@@ -89,3 +89,13 @@ if (! function_exists('getCategoriesByParentCategory')) {
         return $parentCategory ? $parentCategory->childCategory : null;          
     }
 }
+
+/**
+ * Helper Desc  : Check if user has role.
+ * param1       : Role Name - Required
+ */
+if (! function_exists('userHasRole')) {
+    function userHasRole($roleName){
+        return auth()->user()->roles->contains('name', $roleName);
+    }
+}

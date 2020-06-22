@@ -24,6 +24,13 @@ Route::group(['namespace' => '\LaraSnap\LaravelAdmin\Controller','prefix' => 'ad
         });
         /** USER ROUTES **/
         
+        /** PROFILE ROUTES **/
+        Route::group(['prefix' => 'profile', 'exculde' => ['profile.edit', 'profile.update']], function(){
+            Route::get('/', 'ProfileController@edit')->name('profile.edit');
+            Route::put('{user}', 'ProfileController@update')->name('profile.update');
+        });
+        /** PROFILE ROUTES **/
+        
         /** ROLE ROUTES **/
         Route::group(['prefix' => 'roles', 'exculde' => ['roles.filter', 'roles.store', 'roles.update', 'roles.assignpermission_store', 'roles.assignscreen_store']], function(){
             Route::get('/','RoleController@index')->name('roles.index');

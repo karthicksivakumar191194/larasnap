@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use LaraSnap\LaravelAdmin\Traits\Role;
 use LaraSnap\LaravelAdmin\Traits\Filter;
 
-class User extends Authenticatable{
+class User extends Authenticatable {
 
 	use Role, Filter;
 
