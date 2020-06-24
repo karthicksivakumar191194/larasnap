@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraSnap\LaravelAdmin\Controller;
+namespace LaraSnap\LaravelAdmin\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
