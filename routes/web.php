@@ -4,7 +4,7 @@
 
 //Packges routes by default does not own 'web' middleware, so adding it manually here.
 
-Route::group(['namespace' => '\LaraSnap\LaravelAdmin\Controller','prefix' => 'admin', 'middleware' => ['web', 'auth', 'check-userstatus'], 'roles' => '' ], function(){
+Route::group(['namespace' => '\LaraSnap\LaravelAdmin\Controllers','prefix' => 'admin', 'middleware' => ['web', 'auth', 'check-userstatus'], 'roles' => '' ], function(){
 	
     Route::group(['middleware' => ['check-roles'] ], function(){
         

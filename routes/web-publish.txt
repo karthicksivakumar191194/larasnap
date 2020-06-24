@@ -1,6 +1,6 @@
 /**** LARASNAP ROUTES START ****/
 
-Route::group(['namespace' => '\LaraSnap\LaravelAdmin\Controller','prefix' => 'admin', 'middleware' => ['web', 'auth', 'check-userstatus'], 'roles' => '' ], function(){
+Route::group(['namespace' => '\LaraSnap\LaravelAdmin\Controllers','prefix' => 'admin', 'middleware' => ['web', 'auth', 'check-userstatus'], 'roles' => '' ], function(){
 	
     Route::group(['middleware' => ['check-roles'] ], function(){
         
