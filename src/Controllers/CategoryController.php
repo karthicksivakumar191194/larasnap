@@ -37,7 +37,7 @@ class CategoryController extends Controller
         $filter_request = $this->categoryService->filterValue($request); //filter request
         $categories = $this->categoryService->index($filter_request, 'category', $parentCategoryID); 
 
-        return view('larasnap::category.index')->with(['parentCategoryID' => $parentCategoryID, 'parentCategoryLabel' => $parentCategoryLabel, 'categories' => $categories, 'filters' => $filter_request]);;
+        return view('larasnap::category.index')->with(['parentCategoryID' => $parentCategoryID, 'parentCategoryLabel' => $parentCategoryLabel, 'categories' => $categories, 'filters' => $filter_request]);
     }
 
     /**

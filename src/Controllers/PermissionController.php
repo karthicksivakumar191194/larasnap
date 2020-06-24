@@ -31,7 +31,7 @@ class PermissionController extends Controller
         $filter_request = $this->permissionService->filterValue($request); //filter request
         $permissions = $this->permissionService->index($filter_request);
 
-        return view('larasnap::permissions.index')->with(['permissions' => $permissions, 'filters' => $filter_request]);;
+        return view('larasnap::permissions.index')->with(['permissions' => $permissions, 'filters' => $filter_request]);
     }
 
     /**

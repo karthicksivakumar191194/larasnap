@@ -31,7 +31,7 @@ class CategoryParentController extends Controller
         $filter_request = $this->categoryService->filterValue($request); //filter request
         $parentCategories = $this->categoryService->index($filter_request, 'p_category');
 
-        return view('larasnap::category-parent.index')->with(['parentCategories' => $parentCategories, 'filters' => $filter_request]);;
+        return view('larasnap::category-parent.index')->with(['parentCategories' => $parentCategories, 'filters' => $filter_request]);
     }
 
     /**
