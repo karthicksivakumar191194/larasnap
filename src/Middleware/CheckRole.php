@@ -9,6 +9,12 @@ class CheckRole{
     public function handle($request, Closure $next){  
 		$route = $request->route();
 		
+        //Check if user has role
+        if(!$request->user()->roles()->first()){
+            Auth::logout();
+            return redirect('/')->with('error','Your account has no role mapped. Please contact site administrator for more info.');
+        }
+        
 		// Get the route name from the route
         $routeName = $this->getRouteName($route); 
         // If route name is added to exculded action, bypass the screen based authentication
