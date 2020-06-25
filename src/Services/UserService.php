@@ -116,13 +116,15 @@ class UserService{
 		return $user;
 	}
 
-    public function update($request, $id, $user){
+    public function update($request, $id, $user, $type = null){
 	    /* handle if password updated*/
         if ($request->filled('password')) {
            $userData['password'] = bcrypt($request->password);
         }
         $userData['email'] = $request->email;
-        $userData['status'] = $request->status;
+        if(is_null($type)){
+            $userData['status'] = $request->status;
+        }
 	    $user->update($userData);
 
         /* handle if image uploaded*/
