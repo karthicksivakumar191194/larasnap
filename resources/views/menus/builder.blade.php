@@ -204,7 +204,7 @@ $(document).ready(function () {
          $("#route").val(_src.route);
          $("#parameters").val((JSON.stringify(_src.parameter)));
          $("#menu-item-id").val(_src.id);
-         if(_src.url != ''){
+         if(!_src.route){ 
             $("#link-type").find("option[value='url']").attr('selected', 'selected');
             $("#url-type").show();
             $("#route-type").hide();
@@ -232,10 +232,12 @@ $(document).ready(function () {
    $m_link_type.on('change', function (e) {
        if ($m_link_type.val() == 'route') {
            $m_url_type.hide();
+           $("#url").val('');
            $m_route_type.show();
        } else {
             $m_url_type.show();
             $m_route_type.hide();
+            $("#route").val('');
        }
    });
    
