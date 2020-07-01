@@ -160,7 +160,7 @@ class UserService{
     }
 
     public function destroy($id, $user){
-        if ($user->userProfile & $user->userProfile->user_photo) {
+        if ($user->userProfile && $user->userProfile->user_photo) {
             $folder = config('larasnap.uploads.user.path');
             File::delete(storage_path() .'/app/' .$folder .'/'. $user->userProfile->user_photo);
         }
