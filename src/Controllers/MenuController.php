@@ -29,6 +29,7 @@ class MenuController extends Controller
      */
     public function index(Request $request)
     {
+        setCurrentListPageURL('menus');
         $filter_request = $this->menuService->filterValue($request); //filter request
         $menus = $this->menuService->index($filter_request);
 
@@ -95,8 +96,9 @@ class MenuController extends Controller
     public function update(MenuRequest $request, $id)
     {
         $this->menuService->update($request, $id);
+        $listPageURL = getPreviousListPageURL('menus') ?? route('menus.index'); 
 
-        return redirect()->route('menus.index')->withSuccess('Menu successfully updated.');
+        return redirect($listPageURL)->withSuccess('Menu successfully updated.');
     }
 
     /**

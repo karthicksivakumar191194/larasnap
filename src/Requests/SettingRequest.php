@@ -25,15 +25,21 @@ class SettingRequest extends FormRequest
     {
         return [
             'site_name' => [
-                'required'
+                'required', 'alpha_spaces'
             ],
             'site_logo' => [
                 'nullable','mimes:jpg,jpeg,png','max:1024'
             ],
             'admin_email' => [
-                'required', 'email'
+                'required', 'email:rfc,dns'
             ],
             'date_format' => [
+                'required'
+            ],
+            'date_time_format' => [
+                'required'
+            ],
+            'time_format' => [
                 'required'
             ],
             'entries_per_page' => [

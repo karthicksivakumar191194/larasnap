@@ -26,6 +26,7 @@ class SiteSettingController extends Controller
      */
     public function create()
     {
+        setCurrentListPageURL('settings');
         $settings = Setting::all();
 
         $setting_db_values = [];

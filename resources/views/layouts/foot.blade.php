@@ -7,3 +7,8 @@
 <script src="{{ asset('vendor/larasnap/js/larasnap.min.js') }}"></script>
 <script src="{{ asset('vendor/larasnap/js/larasnap-custom.js') }}"></script>
 <script src="{{ asset('vendor/larasnap/js/jquery.nestable.js') }}"></script>
+<script>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>

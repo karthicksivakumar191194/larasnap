@@ -28,6 +28,7 @@ class CategoryParentController extends Controller
      */
     public function index(Request $request)
     {
+        setCurrentListPageURL('parent_categories');
         $filter_request = $this->categoryService->filterValue($request); //filter request
         $parentCategories = $this->categoryService->index($filter_request, 'p_category');
 
@@ -94,8 +95,9 @@ class CategoryParentController extends Controller
     public function update(CategoryParentRequest $request, $id)
     {
         $this->categoryService->update($request, $id, 'p_category');
+        $listPageURL = getPreviousListPageURL('parent_categories') ?? route('p_categories.index'); 
 		
-		return redirect()->route('p_categories.index')->withSuccess('Parent Category successfully updated.');
+		return redirect($listPageURL)->withSuccess('Parent Category successfully updated.');
     }
 
     /**

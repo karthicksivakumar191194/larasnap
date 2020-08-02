@@ -31,6 +31,7 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
+        setCurrentListPageURL('roles');
         $filter_request = $this->roleService->filterValue($request); //filter request
 	    $roles = $this->roleService->index($filter_request);
 	   	   
@@ -98,8 +99,9 @@ class RoleController extends Controller
     public function update(RoleRequest $request, $id)
     {
         $this->roleService->update($request, $id);
+        $listPageURL = getPreviousListPageURL('roles') ?? route('roles.index');
 		
-		return redirect()->route('roles.index')->withSuccess('Role successfully updated.');
+		return redirect($listPageURL)->withSuccess('Role successfully updated.');
     }
 
     /**

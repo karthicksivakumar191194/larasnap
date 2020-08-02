@@ -28,6 +28,7 @@ class ProfileController extends Controller
      */
     public function edit()
     {
+        setCurrentListPageURL('profile');
         $user = Auth::user(); 
 
         return view('larasnap::profile', compact('user'));

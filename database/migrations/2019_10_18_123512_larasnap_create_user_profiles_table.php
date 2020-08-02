@@ -19,7 +19,7 @@ class LarasnapCreateUserProfilesTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->bigInteger('mobile_no')->nullable();
-            $table->string('address')->nullable();
+            $table->longText('address')->nullable();
             $table->string('state')->nullable();			
 			$table->string('city')->nullable();
             $table->bigInteger('pincode')->nullable();

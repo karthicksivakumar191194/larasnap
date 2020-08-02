@@ -34,6 +34,7 @@ class CategoryController extends Controller
         }
         $parentCategoryLabel = $parentCategory->label;
         
+        setCurrentListPageURL('categories');
         $filter_request = $this->categoryService->filterValue($request); //filter request
         $categories = $this->categoryService->index($filter_request, 'category', $parentCategoryID); 
 
@@ -115,8 +116,9 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, $parentCategoryID, $id)
     {
         $this->categoryService->update($request, $id, 'category');
-		
-		return redirect()->route('categories.index', $parentCategoryID)->withSuccess('Category successfully updated.');
+		$listPageURL = getPreviousListPageURL('categories') ?? route('categories.index', $parentCategoryID); 
+        
+		return redirect($listPageURL)->withSuccess('Category successfully updated.');
     }
 
     /**

@@ -107,13 +107,15 @@
 						</div>
 					</div>
 					<div class="col-md-4">
-						<div class="form-group">
+						<div class="">
 							<label for="user_photo" class="control-label">Profile Picture</label> 
 							<input name="user_photo" type="file" id="user-photo" class="form-control" >
 							 @error('user_photo')
 							 <span class="text-danger">{{ $message }}</span>
 							@enderror 	
 						</div>
+                        <small>Allowed File Formats: jpg, jpeg, png</small>
+                        <p><img src="{{ $user->avatar }}" style="width: 50px;" alt="Prof Picture" ></p>
 					</div>
                     <div class="col-md-4 profile-status">
 					<div class="form-group">
@@ -124,7 +126,7 @@
 						<label for="inactive">InActive</label>					 
 					</div>
                      </div>
-					<div class="col-md-4">
+					<div class="col-md-4 no-label">
 						<div class="form-group">
 							<input type="submit" value="Update" class="btn btn-primary">
 						</div>

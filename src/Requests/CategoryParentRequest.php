@@ -30,7 +30,7 @@ class CategoryParentRequest extends FormRequest
                 'required', Rule::unique((new Category)->getTable())->ignore($this->route()->p_category ?? null)
             ],
 			'label' => [
-                'required'
+                'required', 'alpha_spaces'
             ],
         ];
     }

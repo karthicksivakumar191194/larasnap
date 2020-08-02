@@ -4,6 +4,7 @@ namespace LaraSnap\LaravelAdmin;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Validator;
 use LaraSnap\LaravelAdmin\Commands\InstallCommand;
 use LaraSnap\LaravelAdmin\Models\Screen;
 
@@ -29,6 +30,8 @@ class LaravelAdminServiceProvider extends ServiceProvider{
 
         $this->bladeCanAccess();
         $this->bladeUserHasRole();
+        
+        $this->customValidationRule();
 	}
 	
 	private function registerPublishableResources(){
@@ -104,5 +107,15 @@ class LaravelAdminServiceProvider extends ServiceProvider{
         Blade::if('userHasRole', function ($roleName) {
             return userHasRole($roleName);
         });
+    }
+    
+    private function customValidationRule(){
+       Validator::extend('alpha_spaces', function ($attribute, $value) {
+            return preg_match('/^[\pL\s]+$/u', $value);
+        }, 'The :attribute may only contain letters & spaces.');
+        
+        Validator::extend('alpha_spaces_hyphens', function ($attribute, $value) {
+            return preg_match('/^[\pL\s-]+$/u', $value);
+        }, 'The :attribute may only contain letters, spaces & hyphens.');
     }
 }

@@ -147,7 +147,7 @@ $(document).ready(function () {
     });
 
     /*string to lowercase*/
-    $(".lower-case").on('change keyup paste',function(){
+    $(".lower-case").on('change keyup keydown paste',function(){
         $(this).val($(this).val().toLowerCase());
         $(this).val($(this).val().replace(' ', '-'));
     });

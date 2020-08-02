@@ -31,7 +31,7 @@ class ScreenRequest extends FormRequest
                 'required', Rule::unique((new Screen)->getTable())->ignore($this->route()->screen ?? null), new CheckRouteName
             ],
 			'label' => [
-                'required'
+                'required', 'alpha_spaces'
             ],
             'module_id' => [
                 'required'

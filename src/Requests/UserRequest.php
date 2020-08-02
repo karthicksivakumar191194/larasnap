@@ -5,6 +5,7 @@ namespace LaraSnap\LaravelAdmin\Requests;
 use App\User;
 use LaraSnap\LaravelAdmin\Models\Userprofile;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserRequest extends FormRequest
@@ -27,6 +28,9 @@ class UserRequest extends FormRequest
     public function rules()
     { 
 	//$this->route()->user - 'user' is the parameter(user) in the route
+    
+    $zipCodeSize = config('larasnap.module_list.user.zip_code_size') ?? 5;
+    
         return [
             'first_name' => [
                 'required', 'min:3', 'alpha'
@@ -35,30 +39,39 @@ class UserRequest extends FormRequest
                 'required', 'min:3', 'alpha'
             ],
             'email' => [
-                'required', 'email', Rule::unique((new User)->getTable())->ignore($this->route()->user ?? null)
+                'required', 'email:rfc,dns', Rule::unique((new User)->getTable())->ignore($this->route()->user ?? null)
             ],
 			'mobile_no' => [
                 'required','numeric','digits:10', 'regex:/^[1-9]{1}[0-9]+/', 'unique:userprofiles,mobile_no,'.$this->route()->user.',user_id'
-            ],
-            'password' => [
-                $this->route()->user ? 'nullable' :'required', 'confirmed', 'min:6',
             ],
 			'address' => [
                 'required'
             ],
 			'city' => [
-                'required'
+                'required', 'alpha_spaces'
             ],
 			'state' => [
-                'required'
+                'required', 'alpha_spaces'
             ],
 			'pincode' => [
-                'required', 
+                'required', 'size:'.$zipCodeSize,
             ],
 			'user_photo' => [
                 'nullable','mimes:jpg,jpeg,png','max:1024'
             ],
         ];
+    }
+    
+    public function withValidator(Validator $validator){
+        if($this->route()->user){
+            $validator->addRules([
+                'password' => ['nullable', 'min:6', 'confirmed'],
+            ]);
+        }else{
+            $validator->addRules([
+                'password' => ['required', 'min:6', 'confirmed'],
+            ]);            
+        }
     }
 	
 	public function messages()

@@ -30,8 +30,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
-
+    { 
+        setCurrentListPageURL('users');
         $filter_request = $this->userService->filterValue($request); //filter request
 		$roles          = $this->getAllRoles();
 		$users          = $this->userService->index($filter_request);
@@ -111,8 +111,9 @@ class UserController extends Controller
         try {
             $user = User::findOrFail($id);
             $this->userService->update($request, $id, $user);
+            $listPageURL = getPreviousListPageURL('users') ?? route('users.index'); 
 
-            return redirect()->route('users.index')->withSuccess('User successfully updated.');
+            return redirect($listPageURL)->withSuccess('User successfully updated.');
         }catch (ModelNotFoundException $exception) {
             return redirect()->route('users.index')->withError('User not found by ID ' .$id);
         }

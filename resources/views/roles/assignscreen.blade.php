@@ -47,7 +47,7 @@
                                 @endforelse
                             </div> 
                             @if($modules->isNotEmpty())
-                                <input type="submit" value="Submit" class="btn btn-primary mt-10">
+                                <input type="submit" value="Update" class="btn btn-primary mt-10">
                             @endif
                         </form>
                     </div>

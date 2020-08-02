@@ -30,7 +30,7 @@
                   <p>No Permission</p>
                   @endforelse
                   @if($permissions->isNotEmpty())
-                        <input type="submit" value="Submit" class="btn btn-primary"> 
+                        <input type="submit" value="Update" class="btn btn-primary"> 
                   @endif
                </form>
             </div>

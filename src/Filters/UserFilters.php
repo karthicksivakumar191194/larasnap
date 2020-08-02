@@ -12,9 +12,13 @@ class UserFilters extends Filters
 
     public function user_role($term){
         if($term != 'all'){
-            return $this->builder->whereHas('roles', function ($query) use ($term) {
-                return $query->where('roles.id', $term);
-            });
+            if($term == 'no_role'){
+                return $this->builder->doesntHave('roles');
+            }else{
+                return $this->builder->whereHas('roles', function ($query) use ($term) {
+                    return $query->where('roles.id', $term);
+                });
+            }
         }
     }
 

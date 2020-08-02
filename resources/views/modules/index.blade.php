@@ -92,7 +92,7 @@
                   <div class="row">
                      <div class="col-md-4">
                         <div class="form-group">
-                           <input type="submit" value="Submit" id="module-submit" class="btn btn-primary">
+                           <input type="submit" value="Save" id="module-submit" class="btn btn-primary">
                         </div>
                      </div>
                   </div>

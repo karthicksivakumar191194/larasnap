@@ -27,7 +27,7 @@ class ModuleRequest extends FormRequest
     {  
         return [
             'label' => [
-                'required', Rule::unique((new Module)->getTable())->ignore($this->route()->module ?? null)
+                'required', 'alpha_spaces', Rule::unique((new Module)->getTable())->ignore($this->route()->module ?? null)
             ],			
         ];
     }

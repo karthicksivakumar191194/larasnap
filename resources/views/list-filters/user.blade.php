@@ -8,6 +8,7 @@
    @if(config('larasnap.module_list.user.filter.role'))
    <select name="user_role" id="role" class="form-control ml-10" onchange="filterByID(this)">
       <option value="all" >All Roles</option>
+      <option value="no_role" @if($filters['user_role'] == 'no_role' ) selected @endif >No Role</option>
 	  @foreach($roles as $name => $id)
       <option @if($filters['user_role'] == $id ) selected @endif value="{{ $id }}">{{ $name }}</option>
 	  @endforeach
@@ -29,5 +30,5 @@
    </select>
    @endif	
    @if(config('larasnap.module_list.user.search'))				 
-   <input type="text" name="search" placeholder="Search User..." class="form-control ml-10" value="{{ $filters['search'] }}">
+   <input type="text" name="search" placeholder="Search User..." class="form-control ml-10" value="{{ $filters['search'] }}" data-toggle="tooltip" data-placement="top" title="Search by user first name or last name or both">
    @endif				  

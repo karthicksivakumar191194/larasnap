@@ -30,7 +30,7 @@ class MenuRequest extends FormRequest
                 'required', Rule::unique((new Menu)->getTable())->ignore($this->route()->menu ?? null)
             ],
             'label' => [
-                'required'
+                'required', 'alpha_spaces'
             ],
         ];
     }

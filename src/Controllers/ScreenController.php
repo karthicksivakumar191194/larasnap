@@ -33,6 +33,7 @@ class ScreenController extends Controller
      */
     public function index(Request $request)
     {
+        setCurrentListPageURL('screens');
         $filter_request = $this->screenService->filterValue($request); //filter request
         $screens = $this->screenService->index($filter_request);  
 
@@ -99,8 +100,9 @@ class ScreenController extends Controller
     public function update(ScreenRequest $request, $id)
     {
         $this->screenService->update($request, $id);
+        $listPageURL = getPreviousListPageURL('screens') ?? route('screens.index'); 
 		
-		return redirect()->route('screens.index')->withSuccess('Screen successfully updated.');
+		return redirect($listPageURL)->withSuccess('Screen successfully updated.');
     }
 
     /**

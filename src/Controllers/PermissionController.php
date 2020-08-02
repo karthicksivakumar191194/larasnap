@@ -28,6 +28,7 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
+        setCurrentListPageURL('permissions');
         $filter_request = $this->permissionService->filterValue($request); //filter request
         $permissions = $this->permissionService->index($filter_request);
 
@@ -94,8 +95,9 @@ class PermissionController extends Controller
     public function update(PermissionRequest $request, $id)
     {
         $this->permissionService->update($request, $id);
+        $listPageURL = getPreviousListPageURL('permissions') ?? route('permissions.index'); 
 		
-		return redirect()->route('permissions.index')->withSuccess('Permission successfully updated.');
+		return redirect($listPageURL)->withSuccess('Permission successfully updated.');
     }
 
     /**

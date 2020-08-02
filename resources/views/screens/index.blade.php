@@ -38,7 +38,7 @@
                      <thead>
                         <tr>
                            <th>ID</th>
-                           <th>Name(Slug)</th>
+                           <th>Name(Route Name)</th>
                            <th>Label</th>
                            <th>Module</th>
                            <th>Actions</th>

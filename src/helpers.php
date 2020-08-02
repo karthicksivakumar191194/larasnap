@@ -76,9 +76,9 @@ if(!function_exists('larasnapDecrypt')) {
  * param1       : Parent Category Slug - Required
  * param2       : Order By Column - Optional | Default - Label
  * param3       : Order By Direction - Optional | Default - Asc
- * Return       : List of categories based on parent slug & arguments passed.
+ * Return       : List of categories based on parent slug & arguments passed or null.
  */
-if (! function_exists('getCategoriesByParentCategory')) {
+if (!function_exists('getCategoriesByParentCategory')) {
     function getCategoriesByParentCategory($parentCategorySlug, $orderByColumn = 'label', $orderByDirection = 'asc'){
         $parentCategory = Category::where([['name', '=', $parentCategorySlug], ['is_parent', '=', 1], ['status', '=', 1]])
                     ->whereHas('childCategory', function ($q) use ($orderByColumn, $orderByDirection){
@@ -94,8 +94,38 @@ if (! function_exists('getCategoriesByParentCategory')) {
  * Helper Desc  : Check if user has role.
  * param1       : Role Name - Required
  */
-if (! function_exists('userHasRole')) {
+if (!function_exists('userHasRole')) {
     function userHasRole($roleName){
         return auth()->user()->roles->contains('name', $roleName);
     }
 }
+
+/**
+ * Helper Desc  : Set current list page URL in session.
+ * Helper Info  : Make sure the 'param' passed here & on the 'getPreviousListPageURL' helper are same.
+ * Usage        : Index - Method
+ */
+if (!function_exists('setCurrentListPageURL')) {
+    function setCurrentListPageURL($module){
+        $url = url()->full();
+        //remove previously added 'list page' URL from session(from any module).
+        app('request')->session()->forget('list_page');
+        //add current 'list page' URL to session.
+        app('request')->session()->put('list_page.'.$module, $url); 
+    }
+}
+
+/**
+ * Helper Desc  : Set current list page URL in session. 
+ * Helper Info  : Make sure the 'param' passed here & on the 'setCurrentListPageURL' helper are same.
+ * Usage        : Update - Method
+ */
+if (!function_exists('getPreviousListPageURL')) {
+    function getPreviousListPageURL($module){
+        //get previous added 'list page' URL from session.
+        $prevPageURL = app('request')->session()->get('list_page.'.$module);
+        
+        return $prevPageURL;
+    }
+}
+

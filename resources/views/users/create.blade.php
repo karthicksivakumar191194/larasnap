@@ -21,7 +21,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label for="first_name" class="control-label">First Name<small class="text-danger required">*</small></label> 
-							<input name="first_name" type="text" id="first-name" class="form-control" value="{{ old('first_name') }}">
+							<input name="first_name" type="text" id="first-name" class="form-control" value="{{ old('first_name') }}" >
 							@error('first_name')
 							 <span class="text-danger">{{ $message }}</span>
 							@enderror 							
@@ -123,9 +123,9 @@
 						<label for="inactive">InActive</label>					 
 					</div>
                      </div>
-					<div class="col-md-4">
+					<div class="col-md-4 no-label">
 						<div class="form-group">
-							<input type="submit" value="Submit" class="btn btn-primary">
+							<input type="submit" value="Save" class="btn btn-primary">
 						</div>
 					</div>
 				  </div>

@@ -29,6 +29,7 @@ class ModuleController extends Controller
      */
     public function index(Request $request)
     {
+        setCurrentListPageURL('modules');
         $filter_request = $this->moduleService->filterValue($request); //filter request
         $modules = $this->moduleService->index($filter_request);
 

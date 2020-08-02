@@ -159,6 +159,7 @@ return [
             ],
             'search' => true,
             'maximum_role_selection' => 0, //set 0 if user can have multiple roles.
+            'zip_code_size' => 5,
         ],
         'role' => [
             'search' => true,

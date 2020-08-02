@@ -30,7 +30,7 @@ class PermissionRequest extends FormRequest
                 'required', Rule::unique((new Permission)->getTable())->ignore($this->route()->permission ?? null)
             ],
 			'label' => [
-                'required'
+                'required', 'alpha_spaces'
             ],
         ];
     }

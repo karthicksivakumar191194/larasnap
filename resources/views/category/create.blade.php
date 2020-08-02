@@ -12,7 +12,7 @@
       <div class="card shadow mb-4">
          <div class="card-body">
             <div class="card-body">
-               <a href="{{ route('categories.index', 1) }}" title="Back to Category List" class="btn btn-warning btn-sm"><i aria-hidden="true" class="fa fa-arrow-left"></i> Back to Category List
+               <a href="{{ route('categories.index', $parentCategoryID) }}" title="Back to Category List" class="btn btn-warning btn-sm"><i aria-hidden="true" class="fa fa-arrow-left"></i> Back to Category List
                </a> 
                <br> <br> 
                <form method="POST" action="{{ route('categories.store', $parentCategoryID) }}"  class="form-horizontal" autocomplete="off">
@@ -60,7 +60,7 @@
                      <div class="row">
                      <div class="col-md-6">
                         <div class="form-group">
-                           <input type="submit" value="Submit" class="btn btn-primary">
+                           <input type="submit" value="Save" class="btn btn-primary">
                         </div>
                      </div>
                   </div>

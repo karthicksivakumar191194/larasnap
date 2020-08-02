@@ -30,7 +30,7 @@ class RoleRequest extends FormRequest
                 'required', Rule::unique((new Role)->getTable())->ignore($this->route()->role ?? null)
             ],
 			'label' => [
-                'required'
+                'required', 'alpha_spaces'
             ],
         ];
     }
