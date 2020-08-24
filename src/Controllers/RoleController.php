@@ -86,6 +86,11 @@ class RoleController extends Controller
 		}catch (ModelNotFoundException $exception) {
 			return redirect()->route('roles.index')->withError('Role not found by ID ' .$id);
 		}
+		
+		if(restrictData('role', $role->name)){
+			return redirect()->route('roles.index')->withError('Illegal Access: No permission to edit role by ID ' .$id);
+		}
+		
         return view('larasnap::roles.edit', compact('role'));
     }
 
@@ -112,6 +117,16 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
+		try {
+			$role = Role::findOrFail($id);
+		}catch (ModelNotFoundException $exception) {
+			return redirect()->route('roles.index')->withError('Role not found by ID ' .$id);
+		}	
+		
+		if(restrictData('role', $role->name)){
+			return redirect()->route('roles.index')->withError('Illegal Access: No permission to delete role by ID ' .$id);
+		}
+		
         $this->roleService->destroy($id);
 
         return redirect()->route('roles.index')->withSuccess('Role successfully deleted.');
@@ -127,6 +142,10 @@ class RoleController extends Controller
 			$role = Role::findOrFail($id);
 		}catch (ModelNotFoundException $exception) {
 			return redirect()->route('roles.index')->withError('Role not found by ID ' .$id);
+		}
+		
+		if(restrictData('role', $role->name)){
+			return redirect()->route('roles.index')->withError('Illegal Access: No permission to edit assign permission by ID ' .$id);
 		}
 
 		$role_permissions = [];
@@ -157,7 +176,8 @@ class RoleController extends Controller
             }
         }
 
-        return redirect()->route('roles.index')->withSuccess('Permissions assigned to role successfully.');
+        $listPageURL = getPreviousListPageURL('roles') ?? route('roles.index');
+        return redirect()->route($listPageURL)->withSuccess('Permissions assigned to role successfully.');
     }
 
     /**
@@ -171,6 +191,10 @@ class RoleController extends Controller
         }catch (ModelNotFoundException $exception) {
             return redirect()->route('roles.index')->withError('Role not found by ID ' .$id);
         }
+		
+		if(restrictData('role', $role->name)){
+			return redirect()->route('roles.index')->withError('Illegal Access: No permission to edit assign screen by ID ' .$id);
+		}				
 
         $role_screens = [];
         foreach ($role->screens as $screen){
@@ -203,7 +227,8 @@ class RoleController extends Controller
             }
         }
 
-        return redirect()->route('roles.index')->withSuccess('Screens assigned to role successfully.');
+        $listPageURL = getPreviousListPageURL('roles') ?? route('roles.index');
+        return redirect()->route($listPageURL)->withSuccess('Screens assigned to role successfully.');
     }
 
 }

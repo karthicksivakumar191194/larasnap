@@ -3,7 +3,7 @@
 @section('content')
 <!-- Page Heading  Start-->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-   <h1 class="h3 mb-0 text-gray-800">Site Settings</h1>
+   <h1 class="h3 mb-0 text-gray-800">Settings</h1>
 </div>
 <!-- Page Heading End-->				  
 <!-- Page Content Start-->				  
@@ -90,6 +90,20 @@
                            <label for="entries-per-page" class="control-label">Entries Per Page<small class="text-danger required">*</small></label> 
                            <input name="entries_per_page" type="number" id="entries-per-page" class="form-control" min="1" max="25" value="{{ old('entries_per_page', $setting_db_values['entries_per_page']) }}">
                            @error('entries_per_page')
+                           <span class="text-danger">{{ $message }}</span>
+                           @enderror 							
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="form-group">
+                           <label for="default-user-role" class="control-label">Default User Role<small class="text-danger required">*</small></label> 
+                           <select class="form-control ts"  name="default_user_role" id="default-user-role" >
+                              <option value="0"  selected="selected">No Role</option>
+                              @foreach($roles as $key => $role)
+                                <option value="{{ $role->id }}" @if(old('default_user_role',$setting_db_values['default_user_role'] ?? '') == $role->id ) selected @endif >{{ $role->label }}</option>
+                              @endforeach
+                           </select>
+                            @error('default_user_role')
                            <span class="text-danger">{{ $message }}</span>
                            @enderror 							
                         </div>

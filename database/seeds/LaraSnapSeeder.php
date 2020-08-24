@@ -210,7 +210,7 @@ class LaraSnapSeeder extends Seeder
             $menuItem7->route  = "p_categories.index";
             
             $menuItem8 = new MenuItem;
-            $menuItem8->title  = "Site Settings";
+            $menuItem8->title  = "Settings";
             $menuItem8->icon   = "fa-wrench";
             $menuItem8->order  = 8;
             $menuItem8->target = "_self";
@@ -237,6 +237,7 @@ class LaraSnapSeeder extends Seeder
             ['name' => 'date_time_format','value' => 'd/m/Y  h:i A'],
             ['name' => 'time_format','value' => 'h:i:s A'],
             ['name' => 'entries_per_page','value' => '10'],
+            ['name' => 'default_user_role','value' => '0'],
         ];
         Setting::insert($settings);
     }

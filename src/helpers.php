@@ -73,9 +73,9 @@ if(!function_exists('larasnapDecrypt')) {
 
 /**
  * Helper Desc  : Get Categories By Parent Category Slug.
- * param1       : Parent Category Slug - Required
- * param2       : Order By Column - Optional | Default - Label
- * param3       : Order By Direction - Optional | Default - Asc
+ * Param1       : Parent Category Slug - Required
+ * Param2       : Order By Column - Optional | Default - Label
+ * Param3       : Order By Direction - Optional | Default - Asc
  * Return       : List of categories based on parent slug & arguments passed or null.
  */
 if (!function_exists('getCategoriesByParentCategory')) {
@@ -92,7 +92,7 @@ if (!function_exists('getCategoriesByParentCategory')) {
 
 /**
  * Helper Desc  : Check if user has role.
- * param1       : Role Name - Required
+ * Param        : Role Name - Required
  */
 if (!function_exists('userHasRole')) {
     function userHasRole($roleName){
@@ -129,3 +129,19 @@ if (!function_exists('getPreviousListPageURL')) {
     }
 }
 
+/**
+ * Helper Desc  : Restrict data to prevent from accessing/deleting from backend.  - On development
+ * Param1       : Module name. Module name should be added to config(larasnap.restrict) - Required
+ * Param2       : Data name to restrict - Required
+ */
+if (!function_exists('restrictData')) {
+    function restrictData($module, $name){
+        $restrict = config('larasnap.restrict');
+        if(isset($restrict) && !empty($restrict) && isset($restrict[$module]) && !empty($restrict[$module])){ 
+			if(in_array($name, $restrict[$module])){
+				return true;
+			}
+		}
+		return false; 
+    }
+}

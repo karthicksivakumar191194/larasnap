@@ -44,6 +44,7 @@
                            <td>{{ $role->name }}</td>
                            <td>{{ $role->label }}</td>
                            <td>
+						       @showData('role', $role->name)
                                @canAccess('roles.edit')
 							  <a href="{{ route('roles.edit', $role->id) }}" title="Edit Role"><button class="btn btn-primary btn-sm" type="button"><i aria-hidden="true" class="fa fa-pencil-square-o"></i></button></a>
                                @endcanAccess
@@ -56,6 +57,7 @@
                                @canAccess('roles.destroy')
                                <a href="#" onclick="return individualDelete({{ $role->id }})" title="Delete Role"><button class="btn btn-danger btn-sm" type="button"><i aria-hidden="true" class="fa fa-trash"></i></button></a>
                                @endcanAccess
+							   @endshowData
                            </td>
                         </tr>
 						@empty

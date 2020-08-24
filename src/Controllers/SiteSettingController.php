@@ -5,6 +5,7 @@ namespace LaraSnap\LaravelAdmin\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use LaraSnap\LaravelAdmin\Models\Setting;
+use LaraSnap\LaravelAdmin\Models\Role;
 use LaraSnap\LaravelAdmin\Requests\SettingRequest;
 use LaraSnap\LaravelAdmin\Services\SettingService;
 
@@ -33,8 +34,10 @@ class SiteSettingController extends Controller
         foreach ($settings as $setting){
             $setting_db_values[$setting->name] = $setting->value;
         }
+        
+        $roles = Role::select('id', 'label')->get();
 
-        return view('larasnap::settings.create', compact('setting_db_values'));
+        return view('larasnap::settings.create', compact('setting_db_values', 'roles'));
     }
 	
 	 /**

@@ -93,6 +93,11 @@ class UserController extends Controller
     {
 		try {
 			$user = User::findOrFail($id);
+            //If 'Super Admin Role' is added on the config & if the user has 'Super Admin Role', show the edit screen only if the logged in user has 'Super Admin Role'
+            $superAdminRole = config('larasnap.superadmin_role');
+            if(isset($superAdminRole) && !empty($superAdminRole) && $user->roles->contains('name', $superAdminRole) && !userHasRole($superAdminRole)){
+                return redirect()->route('users.index')->withError('Illegal Access: No permission to edit user by ID ' .$id);
+            }   
 		}catch (ModelNotFoundException $exception) {
 			return redirect()->route('users.index')->withError('User not found by ID ' .$id);
 		}
@@ -129,6 +134,11 @@ class UserController extends Controller
     {
         try {
             $user = User::findOrFail($id);
+            //If 'Super Admin Role' is added on the config & if the user has 'Super Admin Role', delete the user only if the logged in user has 'Super Admin Role'
+            $superAdminRole = config('larasnap.superadmin_role');
+            if(isset($superAdminRole) && !empty($superAdminRole) && $user->roles->contains('name', $superAdminRole) && !userHasRole($superAdminRole)){
+                return redirect()->route('users.index')->withError('Illegal Access: No permission to delete user by ID ' .$id);
+            } 
             $this->userService->destroy($id, $user);
 
             return redirect()->route('users.index')->withSuccess('User successfully deleted.');
@@ -157,7 +167,12 @@ class UserController extends Controller
     {
 		//get existing user - role id, role label.	
 		try {
-			$user = User::with('roles:id,label')->findOrFail($id);
+			$user = User::with('roles:id,name,label')->findOrFail($id);
+            //If 'Super Admin Role' is added on the config & if the user has 'Super Admin Role', show the assign role screen only if the logged in user has 'Super Admin Role'
+            $superAdminRole = config('larasnap.superadmin_role'); 
+            if(isset($superAdminRole) && !empty($superAdminRole) && $user->roles->contains('name', $superAdminRole) && !userHasRole($superAdminRole)){
+                return redirect()->route('users.index')->withError('Illegal Access: No permission to assign role for user by ID ' .$id);
+            } 
 		}catch (ModelNotFoundException $exception) {
 			return redirect()->route('users.index')->withError('User not found by ID ' .$id);
 		}
@@ -191,7 +206,8 @@ class UserController extends Controller
 			}	
 		}	
 
-		return redirect()->route('users.index')->withSuccess('Roles assigned to user successfully.');
+		$listPageURL = getPreviousListPageURL('users') ?? route('users.index'); 
+		return redirect()->route($listPageURL)->withSuccess('Roles assigned to user successfully.');
     }
 }
 

@@ -7,6 +7,7 @@ use File;
 use Illuminate\Support\Facades\Auth;
 use LaraSnap\LaravelAdmin\Traits\Upload;
 use LaraSnap\LaravelAdmin\Models\UserProfile;
+use LaraSnap\LaravelAdmin\Models\Role;
 use LaraSnap\LaravelAdmin\Filters\UserFilters;
 use Illuminate\Support\Facades\Storage;
 
@@ -101,7 +102,7 @@ class UserService{
 		$userProfile   = $user->userProfile()->create($data); 
 		$userProfileId = $userProfile->id;
 		
-		/* handle if image uploaded*/
+		/* handle if image uploaded */
 		 if ($request->has('user_photo')) {
 			$image = $request->file('user_photo');
 			$folder = config('larasnap.uploads.user.path');
@@ -112,6 +113,15 @@ class UserService{
             $userProfile->user_photo  = $imgName;
             $userProfile->save();
 		 }
+		 
+		/* Set default role as set in settings if registered from frontend. */
+		$settingsDefaultRole = setting('default_user_role');
+		if(isset($settingsDefaultRole) && !empty($settingsDefaultRole) && $settingsDefaultRole != 0){
+			$role = Role::where('id', $settingsDefaultRole)->first();
+			if($role){
+				$user->assignRole($role->id);
+			}
+		}
 		
 		return $user;
 	}
@@ -121,7 +131,7 @@ class UserService{
         if ($request->filled('password')) {
            $userData['password'] = bcrypt($request->password);
         }
-        $userData['email'] = $request->email;
+        $userData['email'] = $request->email; 
         if(is_null($type)){
             $userData['status'] = $request->status;
         }

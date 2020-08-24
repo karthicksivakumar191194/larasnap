@@ -107,7 +107,8 @@ return [
         'date_format',
         'date_time_format',
         'time_format',
-        'entries_per_page'
+        'entries_per_page',
+        'default_user_role'
     ],
     //add the setting 'name' which are related to attachements(image, video,...)
     'site_settings_attachemnt' => [
@@ -186,4 +187,15 @@ return [
             'search' => true,
         ],
     ],
+	/*
+    |--------------------------------------------------------------------------
+    | Admin Dashboard config
+    |--------------------------------------------------------------------------
+    |
+    */
+    'superadmin_role' => '', //'Name'of the SuperAdmin Role. Users added to this role can be edited/assign_role/deleted only by the other users in the same role.
+    'restrict' => [
+        'role' => [], 
+        'menu' => [], 
+    ], //Restricted datas can't be edited/deleted from backend.
 ];

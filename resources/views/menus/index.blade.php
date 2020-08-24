@@ -47,12 +47,14 @@
                                  @canAccess('menus.builder')
                                  <a href="{{ route('menus.builder', $menu->id)}}" title="Menu Builder"><button class="btn btn-success btn-sm" type="button"><i aria-hidden="true" class="fa fa-list"></i></button></a>
                                  @endcanAccess
+								 @showData('menu', $menu->name)
                                  @canAccess('menus.edit')
                                  <a href="{{ route('menus.edit', $menu->id) }}" title="Edit Menu"><button class="btn btn-primary btn-sm" type="button"><i aria-hidden="true" class="fa fa-pencil-square-o"></i></button></a>
                                  @endcanAccess
                                  @canAccess('menus.destroy')
                                  <a href="#" onclick="return individualDelete({{ $menu->id}})" title="Delete Menu"><button class="btn btn-danger btn-sm" type="button"><i aria-hidden="true" class="fa fa-trash"></i></button></a>
                                  @endcanAccess
+								 @endshowData
                               </td>
                            </tr>
                         @empty

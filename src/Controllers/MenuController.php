@@ -83,6 +83,11 @@ class MenuController extends Controller
         }catch (ModelNotFoundException $exception) {
             return redirect()->route('menus.index')->withError('Menu not found by ID ' .$id);
         }
+		
+		if(restrictData('menu', $menu->name)){
+			return redirect()->route('menus.index')->withError('Illegal Access: No permission to edit menu by ID ' .$id);
+		}
+		
         return view('larasnap::menus.edit', compact('menu'));
     }
 
@@ -109,9 +114,19 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
+        try {
+            $menu = Menu::findOrFail($id);
+        }catch (ModelNotFoundException $exception) {
+            return redirect()->route('menus.index')->withError('Menu not found by ID ' .$id);
+        }
+		
+		if(restrictData('menu', $menu->name)){
+			return redirect()->route('menus.index')->withError('Illegal Access: No permission to delete menu by ID ' .$id);
+		}
+		
         $this->menuService->destroy($id);
 
-        return redirect()->route('menus.index')->withSuccess('Menu successfully deleted.');       //
+        return redirect()->route('menus.index')->withSuccess('Menu successfully deleted.');
     }
 
     /**

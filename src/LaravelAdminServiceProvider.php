@@ -30,6 +30,7 @@ class LaravelAdminServiceProvider extends ServiceProvider{
 
         $this->bladeCanAccess();
         $this->bladeUserHasRole();
+        $this->bladeShowData();
         
         $this->customValidationRule();
 	}
@@ -106,6 +107,12 @@ class LaravelAdminServiceProvider extends ServiceProvider{
     private function bladeUserHasRole(){
         Blade::if('userHasRole', function ($roleName) {
             return userHasRole($roleName);
+        });
+    }
+	
+	private function bladeShowData(){
+        Blade::if('showData', function ($module, $name) {
+            return !restrictData($module, $name);
         });
     }
     
