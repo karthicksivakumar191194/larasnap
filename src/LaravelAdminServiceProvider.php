@@ -37,6 +37,21 @@ class LaravelAdminServiceProvider extends ServiceProvider{
 	
 	private function registerPublishableResources(){
         $publishablePath = __DIR__.'/../';
+		
+		$laravelVersion = (int)app()->version(); 
+		if($laravelVersion < 8){
+			$loginControllerPath = "/Controllers/Publishable-7.x/7.10.3/Auth/LoginController.php";
+			$registerControllerPath = "/Controllers/Publishable-7.x/7.10.3/Auth/RegisterController.php";
+			$seederPath = "/database/seeds/7x";
+			
+			$seederApplicationPath = database_path('seeds');
+		}else{
+			$loginControllerPath = "/Controllers/Publishable-8.x/8.1.0/Auth/LoginController.php";
+			$registerControllerPath = "/Controllers/Publishable-8.x/8.1.0/Auth/RegisterController.php";	
+			$seederPath = "/database/seeds";
+			
+			$seederApplicationPath = database_path('seeders');			
+		}
 
         $publishable = [
             'larasnap-config' => [
@@ -46,7 +61,7 @@ class LaravelAdminServiceProvider extends ServiceProvider{
                 "{$publishablePath}/assets"              => public_path('vendor/larasnap'),
             ],
             'larasnap-seeds' => [
-                "{$publishablePath}/database/seeds"      => database_path('seeds'),
+                "{$publishablePath}{$seederPath}"        => $seederApplicationPath,
             ],
             'larasnap-migrations' => [
                 "{$publishablePath}/database/migrations" => database_path('migrations'),
@@ -55,10 +70,10 @@ class LaravelAdminServiceProvider extends ServiceProvider{
                 "{$publishablePath}/resources/views"     => resource_path('views/vendor/larasnap'),
             ],
             'larasnap-auth-login-controller' => [
-                __DIR__."/Controllers/Publishable-7.x/7.10.3/Auth/LoginController.php"     => app_path('Http/Controllers/Auth/LoginController.php'),
+                __DIR__.$loginControllerPath    => app_path('Http/Controllers/Auth/LoginController.php'),
             ],
             'larasnap-auth-reg-controller' => [
-                __DIR__."/Controllers/Publishable-7.x/7.10.3/Auth/RegisterController.php"  => app_path('Http/Controllers/Auth/RegisterController.php'),
+                __DIR__.$registerControllerPath => app_path('Http/Controllers/Auth/RegisterController.php'),
             ],
         ];
 

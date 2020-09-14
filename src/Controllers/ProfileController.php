@@ -6,12 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use LaraSnap\LaravelAdmin\Requests\UserRequest;
 use LaraSnap\LaravelAdmin\Services\UserService;
-use App\User;
 use Auth;
 
 class ProfileController extends Controller
 {
     private $userService;
+	private $userModel;
 
 	/**
      * Injecting UserService.
@@ -19,6 +19,7 @@ class ProfileController extends Controller
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
+        $this->userModel = config('larasnap.user_model_namespace');
     }
     
     /**
@@ -42,8 +43,8 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(UserRequest $request, $id)
-    {
-       $user = User::find($id);
+    { 
+       $user = $this->userModel::find($id);
        $this->userService->update($request, $id, $user, 'profile');
 
        return redirect()->route('profile.edit')->withSuccess('Profile successfully updated.');

@@ -3,7 +3,6 @@
 namespace LaraSnap\LaravelAdmin\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use LaraSnap\LaravelAdmin\Requests\UserRequest;
@@ -15,6 +14,7 @@ class UserController extends Controller
 	use Role;
 	
 	private $userService;
+	private $userModel;
 
 	 /**
      * Injecting UserService.
@@ -22,6 +22,7 @@ class UserController extends Controller
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
+		$this->userModel = config('larasnap.user_model_namespace');
     }
 	
     /**
@@ -76,7 +77,7 @@ class UserController extends Controller
 			return redirect()->route('users.index')->withError($exception->getMessage());
 		}*/
 		try {
-			$user = User::findOrFail($id);
+			$user = $this->userModel::findOrFail($id);
 		}catch (ModelNotFoundException $exception) {
 			return redirect()->route('users.index')->withError('User not found by ID ' .$id);
 		}
@@ -92,7 +93,7 @@ class UserController extends Controller
     public function edit($id)
     {
 		try {
-			$user = User::findOrFail($id);
+			$user = $this->userModel::findOrFail($id);
             //If 'Super Admin Role' is added on the config & if the user has 'Super Admin Role', show the edit screen only if the logged in user has 'Super Admin Role'
             $superAdminRole = config('larasnap.superadmin_role');
             if(isset($superAdminRole) && !empty($superAdminRole) && $user->roles->contains('name', $superAdminRole) && !userHasRole($superAdminRole)){
@@ -114,7 +115,7 @@ class UserController extends Controller
     public function update(UserRequest $request, $id)
     {
         try {
-            $user = User::findOrFail($id);
+            $user = $this->userModel::findOrFail($id);
             $this->userService->update($request, $id, $user);
             $listPageURL = getPreviousListPageURL('users') ?? route('users.index'); 
 
@@ -133,7 +134,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         try {
-            $user = User::findOrFail($id);
+            $user = $this->userModel::findOrFail($id);
             //If 'Super Admin Role' is added on the config & if the user has 'Super Admin Role', delete the user only if the logged in user has 'Super Admin Role'
             $superAdminRole = config('larasnap.superadmin_role');
             if(isset($superAdminRole) && !empty($superAdminRole) && $user->roles->contains('name', $superAdminRole) && !userHasRole($superAdminRole)){
@@ -167,7 +168,7 @@ class UserController extends Controller
     {
 		//get existing user - role id, role label.	
 		try {
-			$user = User::with('roles:id,name,label')->findOrFail($id);
+			$user = $this->userModel::with('roles:id,name,label')->findOrFail($id);
             //If 'Super Admin Role' is added on the config & if the user has 'Super Admin Role', show the assign role screen only if the logged in user has 'Super Admin Role'
             $superAdminRole = config('larasnap.superadmin_role'); 
             if(isset($superAdminRole) && !empty($superAdminRole) && $user->roles->contains('name', $superAdminRole) && !userHasRole($superAdminRole)){
@@ -194,7 +195,7 @@ class UserController extends Controller
     { 
 		//$this->validate($request,['roles' => 'required'], ['roles.required' => 'Please select atleast one role for user.']);
 		
-		$user = User::find($id);
+		$user = $this->userModel::find($id);
 		//check if their is currently role mapped to user & delete current user roles
         if($user->roles) {
             $user->roles()->detach();
@@ -206,8 +207,7 @@ class UserController extends Controller
 			}	
 		}	
 
-		$listPageURL = getPreviousListPageURL('users') ?? route('users.index'); 
-		return redirect()->route($listPageURL)->withSuccess('Roles assigned to user successfully.');
+		return redirect()->route('users.index')->withSuccess('Roles assigned to user successfully.');
     }
 }
 

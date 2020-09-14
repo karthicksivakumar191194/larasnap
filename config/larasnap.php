@@ -38,6 +38,7 @@ return [
         'default_icon' => 'fa-list', //font-awesome icon
         'default_sidebar_menu' => 'admin', //name of the menu created on the menu management
     ],
+	'user_model_namespace' => 'App\Models\User', //if you use laravel below 8 modify it to 'App\User'
     /*
     |--------------------------------------------------------------------------
     | UI Generic Config

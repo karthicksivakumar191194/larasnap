@@ -2,7 +2,6 @@
 
 namespace LaraSnap\LaravelAdmin\Requests;
 
-use App\User;
 use LaraSnap\LaravelAdmin\Models\Userprofile;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
@@ -30,6 +29,7 @@ class UserRequest extends FormRequest
 	//$this->route()->user - 'user' is the parameter(user) in the route
     
     $zipCodeSize = config('larasnap.module_list.user.zip_code_size') ?? 5;
+	$userModel = config('larasnap.user_model_namespace');
     
         return [
             'first_name' => [
@@ -39,7 +39,7 @@ class UserRequest extends FormRequest
                 'required', 'min:3', 'alpha'
             ],
             'email' => [
-                'required', 'email:rfc,dns', Rule::unique((new User)->getTable())->ignore($this->route()->user ?? null)
+                'required', 'email:rfc,dns', Rule::unique((new $userModel)->getTable())->ignore($this->route()->user ?? null)
             ],
 			'mobile_no' => [
                 'required','numeric','digits:10', 'regex:/^[1-9]{1}[0-9]+/', 'unique:userprofiles,mobile_no,'.$this->route()->user.',user_id'

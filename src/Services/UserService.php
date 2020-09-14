@@ -2,12 +2,10 @@
 
 namespace LaraSnap\LaravelAdmin\Services;
 
-use App\User;
 use File;
 use Illuminate\Support\Facades\Auth;
 use LaraSnap\LaravelAdmin\Traits\Upload;
 use LaraSnap\LaravelAdmin\Models\UserProfile;
-use LaraSnap\LaravelAdmin\Models\Role;
 use LaraSnap\LaravelAdmin\Filters\UserFilters;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,6 +14,7 @@ class UserService{
 	use Upload;
 
     private $filters;
+	private $userModel;
 
     /**
      * Injecting UserFilters.
@@ -23,13 +22,14 @@ class UserService{
     public function __construct(UserFilters $filters)
     {
         $this->filters = $filters;
+		$this->userModel = config('larasnap.user_model_namespace');
     }
 	
 	public function index($filter_request){
 		$entriesPerPage = setting('entries_per_page');
 
         //filter($filters) - pass only 2nd argument, 1st argument will be automatically injected to dynamic scope.  $filters - Needs to be a child class of \LaraSnap\LaravelAdmin\Filters\Filters
-        $users = User::filter($this->filters, $filter_request)->paginate($entriesPerPage);
+        $users = $this->userModel::filter($this->filters, $filter_request)->paginate($entriesPerPage);
         //$users = User::filter($this->filters, $filter_request)->toSql(); dd($users);
 
 		return $users;
@@ -97,12 +97,12 @@ class UserService{
         $data['password']   = bcrypt($request->password);
         $data['created_by'] = Auth::id();
 
-        $user   = User::create($data);
+        $user   = $this->userModel::create($data);
 		$userId = $user->id;
 		$userProfile   = $user->userProfile()->create($data); 
 		$userProfileId = $userProfile->id;
 		
-		/* handle if image uploaded */
+		/* handle if image uploaded*/
 		 if ($request->has('user_photo')) {
 			$image = $request->file('user_photo');
 			$folder = config('larasnap.uploads.user.path');
@@ -113,15 +113,6 @@ class UserService{
             $userProfile->user_photo  = $imgName;
             $userProfile->save();
 		 }
-		 
-		/* Set default role as set in settings if registered from frontend. */
-		$settingsDefaultRole = setting('default_user_role');
-		if(isset($settingsDefaultRole) && !empty($settingsDefaultRole) && $settingsDefaultRole != 0){
-			$role = Role::where('id', $settingsDefaultRole)->first();
-			if($role){
-				$user->assignRole($role->id);
-			}
-		}
 		
 		return $user;
 	}
@@ -180,7 +171,7 @@ class UserService{
     }
 
 	public function bulkDelete($idsToDelete){
-	    $selectedUsers = User::whereIn('id', $idsToDelete)->get();
+	    $selectedUsers = $this->userModel::whereIn('id', $idsToDelete)->get();
 	    $imgArray = [];
 	    foreach ($selectedUsers as $user){
             if ($user->userProfile && $user->userProfile->user_photo) {
@@ -191,7 +182,7 @@ class UserService{
         }
         File::delete($imgArray);
 
-	    $users = User::whereIn('id', $idsToDelete)->delete();
+	    $users = $this->userModel::whereIn('id', $idsToDelete)->delete();
 
 	    return $users;
     }
