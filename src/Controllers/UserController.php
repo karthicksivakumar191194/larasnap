@@ -207,7 +207,8 @@ class UserController extends Controller
 			}	
 		}	
 
-		return redirect()->route('users.index')->withSuccess('Roles assigned to user successfully.');
+        $listPageURL = getPreviousListPageURL('users') ?? route('users.index'); 
+		return redirect( $listPageURL)->withSuccess('Roles assigned to user successfully.');
     }
 }
 
