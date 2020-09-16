@@ -177,7 +177,7 @@ class RoleController extends Controller
         }
 
         $listPageURL = getPreviousListPageURL('roles') ?? route('roles.index');
-        return redirect()->route($listPageURL)->withSuccess('Permissions assigned to role successfully.');
+        return redirect($listPageURL)->withSuccess('Permissions assigned to role successfully.');
     }
 
     /**
@@ -228,7 +228,7 @@ class RoleController extends Controller
         }
 
         $listPageURL = getPreviousListPageURL('roles') ?? route('roles.index');
-        return redirect()->route($listPageURL)->withSuccess('Screens assigned to role successfully.');
+        return redirect($listPageURL)->withSuccess('Screens assigned to role successfully.');
     }
 
 }

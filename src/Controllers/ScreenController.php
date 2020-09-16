@@ -160,7 +160,7 @@ class ScreenController extends Controller
         }
 
 		$listPageURL = getPreviousListPageURL('screens') ?? route('screens.index'); 
-        return redirect()->route($listPageURL)->withSuccess('Roles assigned to screen successfully.');
+        return redirect($listPageURL)->withSuccess('Roles assigned to screen successfully.');
     }
     
     /**
